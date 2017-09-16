@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+<!--解決報錯BUG-->
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+</resources>
