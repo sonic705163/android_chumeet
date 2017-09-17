@@ -1,9 +1,10 @@
 package iii.com.chumeet.act;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class ActVO {
+public class ActVO implements Serializable {
     private Integer actID;
     private Integer memID;
     private Timestamp actCreateDate;
@@ -81,28 +82,28 @@ public class ActVO {
         this.actLocID = actLocID;
     }
     public String getActStartDate() {
-        String date = new SimpleDateFormat("yyyy-MM-dd \nHH:mm a").format(actStartDate);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm a").format(actStartDate);
         return date;
     }
     public void setActStartDate(Timestamp actStartDate) {
         this.actStartDate = actStartDate;
     }
     public String getActEndDate() {
-        String date = new SimpleDateFormat("yyyy-MM-dd \nHH:mm a").format(actEndDate);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm a").format(actEndDate);
         return date;
     }
     public void setActEndDate(Timestamp actEndDate) {
         this.actEndDate = actEndDate;
     }
     public String getActSignStartDate() {
-        String date = new SimpleDateFormat("yyyy-MM-dd \nHH:mm a").format(actSignStartDate);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm a").format(actSignStartDate);
         return date;
     }
     public void setActSignStartDate(Timestamp actSignStartDate) {
         this.actSignStartDate = actSignStartDate;
     }
     public String getActSignEndDate() {
-        String date = new SimpleDateFormat("yyyy-MM-dd \nHH:mm a").format(actSignEndDate);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm a").format(actSignEndDate);
         return date;
     }
     public void setActSignEndDate(Timestamp actSignEndDate) {

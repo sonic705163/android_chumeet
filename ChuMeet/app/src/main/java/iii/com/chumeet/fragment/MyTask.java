@@ -14,7 +14,7 @@ import java.net.URL;
 
 class MyTask extends AsyncTask<String, Integer, String> {
     private final static String TAG = "MyTask";
-    private  String url, outStr;
+    private String url, outStr;
 
     MyTask(String url, String outStr){
         this.url = url;

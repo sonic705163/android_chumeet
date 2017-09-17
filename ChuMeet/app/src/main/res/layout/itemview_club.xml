@@ -17,10 +17,9 @@
         android:padding="6dp">
 
         <ImageView
-            android:id="@+id/ivClubImage"
+            android:id="@+id/ivClubImg"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-             />
+            android:layout_height="100dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

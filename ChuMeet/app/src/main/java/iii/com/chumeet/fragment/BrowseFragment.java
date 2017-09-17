@@ -42,10 +42,11 @@ public class BrowseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
 
         swipeRefreshLayout =
-                (SwipeRefreshLayout) view.findViewById(R.id.browseRefreshLayout);
+                (SwipeRefreshLayout) view.findViewById(R.id.browseRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -56,6 +57,7 @@ public class BrowseFragment extends Fragment {
         });
 
         rvClubs = (RecyclerView) view.findViewById(R.id.rvClubs);
+
         rvClubs.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        rvClubs.setLayoutManager(
 //                new StaggeredGridLayoutManager(
@@ -67,10 +69,14 @@ public class BrowseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar_browse);
         toolbar.setTitle("Browse");
-
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+
+
+
     }
 
     @Override
@@ -134,7 +140,7 @@ public class BrowseFragment extends Fragment {
             String url = Common.URL + "ClubServletAndroid";
             int id = clubVO.getClubId();
 //抓圖片
-            new GetImageTask(url, id, imageSize, myViewHolder.ivClubImage).execute();
+            new GetImageTask(url, id, imageSize, myViewHolder.ivClubImg).execute();
             myViewHolder.tvClubName.setText(clubVO.getClubName());
             myViewHolder.tvClubDate.setText(clubVO.getClubStartDate());
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -148,12 +154,12 @@ public class BrowseFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            ImageView ivClubImage;
+            ImageView ivClubImg;
             TextView tvClubName, tvClubDate;
 
             MyViewHolder(View itemView) {
                 super(itemView);
-                ivClubImage = (ImageView) itemView.findViewById(R.id.ivClubImage);
+                ivClubImg = (ImageView) itemView.findViewById(R.id.ivClubImg);
                 tvClubName = (TextView) itemView.findViewById(R.id.tvClubName);
                 tvClubDate = (TextView) itemView.findViewById(R.id.tvClubDate);
             }

@@ -1,13 +1,14 @@
 package iii.com.chumeet.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
+import iii.com.chumeet.act.ActDetailActivity;
 import iii.com.chumeet.act.ActVO;
 
 public class FindFragment extends Fragment {
@@ -42,7 +44,7 @@ public class FindFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_find, container, false);
 
         swipeRefreshLayout =
-                (SwipeRefreshLayout) view.findViewById(R.id.findRefreshLayout);
+                (SwipeRefreshLayout) view.findViewById(R.id.findRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -53,10 +55,9 @@ public class FindFragment extends Fragment {
         });
 
         rvActs = (RecyclerView) view.findViewById(R.id.rvActs);
-        rvActs.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        rvActs.setLayoutManager(
-//                new StaggeredGridLayoutManager(
-//                        1, StaggeredGridLayoutManager.HORIZONTAL));
+        rvActs.setLayoutManager(
+                new StaggeredGridLayoutManager(
+                        2, StaggeredGridLayoutManager.HORIZONTAL));
 
         return view ;
     }
@@ -100,6 +101,7 @@ public class FindFragment extends Fragment {
                 Common.showToast(getActivity(), R.string.msg_NoActsFound);
             }else{
                 rvActs.setAdapter(new ActsRecyclerViewAdapter(getActivity(), actVOs));
+
             }
         }else{
             Common.showToast(getActivity(), R.string.msg_NoNetwork);
@@ -133,16 +135,31 @@ public class FindFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MyViewHolder myViewHolder, int postion){
-        final ActVO actVO = actVOs.get(postion);
+            final ActVO actVO = actVOs.get(postion);
             String url = Common.URL + "ActServletAndroid";
             int id = actVO.getActID();
-            new GetImageTask(url, id, imageSize, myViewHolder.ivActImage).execute();
+            new GetImageTask(url, id, imageSize, myViewHolder.ivActImg).execute();
+//            int limitStr = 12;
+//            String name = actVO.getActName();
+//            StringBuffer nameSim = new StringBuffer();
+//            if(name.length() >= limitStr){
+//                for(int i= 0; i < limitStr; i++){
+//                    nameSim = nameSim.append(name.charAt(i));
+//                }
+//                nameSim.append("...");
+//                name = nameSim.toString();
+//            }
             myViewHolder.tvActName.setText(actVO.getActName());
             myViewHolder.tvActDate.setText(actVO.getActStartDate());
-            myViewHolder.ivActImage.setOnClickListener(new View.OnClickListener(){
+            myViewHolder.ivActImg.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
 
+                    Intent intent = new Intent(getActivity(), ActDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("actVO", actVO);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             });
 
@@ -150,18 +167,18 @@ public class FindFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            ImageView ivActImage;
+            ImageView ivActImg;
             TextView tvActName, tvActDate;
 
             MyViewHolder(View itemView) {
                 super(itemView);
-                ivActImage = (ImageView) itemView.findViewById(R.id.ivActImage);
+                ivActImg = (ImageView) itemView.findViewById(R.id.ivActImg);
                 tvActName = (TextView) itemView.findViewById(R.id.tvActName);
                 tvActDate = (TextView) itemView.findViewById(R.id.tvActDate);
             }
         }
     }
-
+//
 //    private void switchFragment(Fragment fragment) {
 //        FragmentTransaction fragmentTransaction =
 //                getFragmentManager().beginTransaction();
