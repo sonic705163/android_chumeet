@@ -20,21 +20,23 @@ import iii.com.chumeet.R;
  * Created by sonic on 2017/9/15.
  */
 
-class GetImageTask extends AsyncTask<Object, Integer, Bitmap>{
-    private final static String TAG = "GetImageTask";
-    private String url;
-    private int id, imageSize;
-    private ImageView imageView;
+ public class GetImageTask extends AsyncTask<Object, Integer, Bitmap>{
+        private final static String TAG = "GetImageTask";
+        private String url;
+        private int id, imageSize;
+        private ImageView imageView;
 
-    GetImageTask(String url, int clubID, int imageSize){
-        this(url, clubID, imageSize, null);
+
+
+    public GetImageTask(String url, int id, int imageSize){
+            this(url, id, imageSize, null);
     }
 
-    GetImageTask(String url, int id, int imageSize, ImageView imageView){
-        this.url =  url;
-        this.id = id;
-        this.imageSize = imageSize;
-        this.imageView = imageView;
+    public GetImageTask(String url, int id, int imageSize, ImageView imageView){
+            this.url =  url;
+            this.id = id;
+            this.imageSize = imageSize;
+            this.imageView = imageView;
     }
 
     @Override

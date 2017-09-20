@@ -24,7 +24,8 @@
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".login.LogInActivity" />
-        <activity android:name=".act.ActDetailActivity"></activity>
+        <activity android:name=".act.ActDetailActivity" />
+        <activity android:name=".club.ClubDetailActivity"></activity>
     </application>
 
 </manifest>

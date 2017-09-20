@@ -7,7 +7,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
+import iii.com.chumeet.fragment.GetImageTask;
 
 public class ActDetailActivity extends AppCompatActivity {
     private static final String TAG = "ActDetailActivity";
@@ -25,24 +27,48 @@ public class ActDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_detail);
 
+
         actImg = (ImageView) findViewById(R.id.ivActDetImg);
         actName = (TextView) findViewById(R.id.tvActDetName);
-        actCont = (TextView) findViewById(R.id.tvActDetContent);
+        actCont = (TextView) findViewById(R.id.tvClubDetContent);
         actDate = (TextView) findViewById(R.id.tvActDetDate);
         actLoc = (TextView) findViewById(R.id.tvActDetLoc);
         acthost = (TextView) findViewById(R.id.tvActDetHost);
-        showResults();
-        Log.d(TAG, "onCreate");
+
+        swipeRefreshLayout =
+                (SwipeRefreshLayout) findViewById(R.id.actDetailRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                showResults();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+//        Log.d(TAG, "onCreate");
     }
 
-    private void showResults(){
+    @Override
+    protected void onStart(){
+        super.onStart();
+        showResults();
+    }
+    private void showResults() {
+        String url = Common.URL + "ActServletAndroid";
         String startDate, endDate;
-
         actVO = (ActVO) getIntent().getSerializableExtra("actVO");
+
+        int imageSize = getResources().getDisplayMetrics().widthPixels / 4;
+
+        int id = actVO.getActID();
+        try {
+            new GetImageTask(url, id, imageSize, actImg).execute().get();
+        }catch (Exception e){
+            Log.e(TAG, e.toString());
+        }
         actName.setText(actVO.getActName());
         actCont.setText(actVO.getActContent());
         actLoc.setText(actVO.getActLocName());
-
         startDate = actVO.getActStartDate();
         endDate = actVO.getActEndDate();
 
@@ -51,21 +77,5 @@ public class ActDetailActivity extends AppCompatActivity {
         Log.d(TAG, "showResults");
     }
 
-//    class ActDetTask extends AsyncTask<String, Integer, List<ActVO>>{
-//        @Override
-//        protected  void onPreExecute(){
-//            super.onPreExecute();
-//            progressDialog = new ProgressDialog(ActDetailActivity.this);
-//            progressDialog.setMessage("Loading...");
-//            progressDialog.show();
-//        }
-//
-//        @Override
-//        protected List<ActVO> doInBackground(String... params){
-//            String url = params[0];
-//            String jsonIn;
-//            JsonObject jsonObject = new JsonObject();
-//            jsonObject.addProperty("action", getActId);
-//        }
-//    }
+
 }

@@ -12,27 +12,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-class MyTask extends AsyncTask<String, Integer, String> {
-    private final static String TAG = "MyTask";
-    private String url, outStr;
+public class MyTask extends AsyncTask<String, Integer, String> {
+        private final static String TAG = "MyTask";
+        private String url, outStr;
 
-    MyTask(String url, String outStr){
+    public MyTask(String url, String outStr){
         this.url = url;
         this.outStr = outStr;
     }
 
+
     @Override
     protected String doInBackground(String... params){
-        String inStr = null;
-        try{
-            inStr = getRemoteData();
-        }catch (IOException e){
-            Log.e(TAG, e.toString());
-        }
-        return inStr;
+            String inStr = null;
+            try{
+                inStr = getRemoteData();
+            }catch (IOException e){
+                Log.e(TAG, e.toString());
+            }
+            return inStr;
     }
 
-    //連線取資料
+//連線取資料
     private String getRemoteData() throws IOException {
         StringBuilder inStr = new StringBuilder();
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();

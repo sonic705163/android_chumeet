@@ -1,10 +1,11 @@
 package iii.com.chumeet.club;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 
-public class ClubVO {
+public class ClubVO implements Serializable{
     private int clubId;
     private int clubMemId;
     private String clubName;
@@ -79,7 +80,7 @@ public class ClubVO {
 
 
     public String getClubStartDate() {
-        String date = new SimpleDateFormat("yyyy-MM-dd \nHH:mm a").format(clubStartDate);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm a").format(clubStartDate);
         return date;
     }
 

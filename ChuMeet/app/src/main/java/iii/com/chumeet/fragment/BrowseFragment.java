@@ -1,6 +1,7 @@
 package iii.com.chumeet.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
+import iii.com.chumeet.club.ClubDetailActivity;
 import iii.com.chumeet.club.ClubVO;
 
 import static iii.com.chumeet.Common.networkConnected;
@@ -73,8 +75,6 @@ public class BrowseFragment extends Fragment {
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar_browse);
         toolbar.setTitle("Browse");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-
 
 
     }
@@ -143,9 +143,14 @@ public class BrowseFragment extends Fragment {
             new GetImageTask(url, id, imageSize, myViewHolder.ivClubImg).execute();
             myViewHolder.tvClubName.setText(clubVO.getClubName());
             myViewHolder.tvClubDate.setText(clubVO.getClubStartDate());
-            myViewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+            myViewHolder.ivClubImg.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
+                    Intent intent = new Intent(getActivity(), ClubDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("clubVO", clubVO);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
 
                 }
             });
