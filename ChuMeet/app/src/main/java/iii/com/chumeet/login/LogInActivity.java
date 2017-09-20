@@ -134,7 +134,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
 //Task
-//    class LoginTask extends AsyncTask<Object, Integer, MemVO> {
+//    class LoginTask extends AsyncTask<String, Integer, MemVO> {
 //        private final static String TAG = "LoginTask";
 //        String url, email, password;
 //
@@ -145,10 +145,10 @@ public class LogInActivity extends AppCompatActivity {
 //        }
 //
 //        @Override
-//        protected MemVO doInBackground(Object... params) {
-//            url = params[0].toString();
-//            email = params[1].toString();
-//            password = params[2].toString();
+//        protected MemVO doInBackground(String... params) {
+//            url = params[0];
+//            email = params[1];
+//            password = params[2];
 //
 //            String jsonIn;
 //

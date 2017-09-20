@@ -81,6 +81,7 @@
     <string name="msg_NoNetwork">No network connection available</string>
     <string name="msg_NoClubsFound">No clubs found</string>
     <string name="msg_NoActsFound">No acts found</string>
+    <string name="btEditProfile">Edit Profile</string>
 
 
 </resources>
