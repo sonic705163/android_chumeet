@@ -26,6 +26,8 @@ import java.util.List;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
+import iii.com.chumeet.Task.GetImageTask;
+import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.act.ActDetailActivity;
 import iii.com.chumeet.act.ActVO;
 
@@ -55,9 +57,10 @@ public class FindFragment extends Fragment {
         });
 
         rvActs = (RecyclerView) view.findViewById(R.id.rvActs);
+//        rvActs.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvActs.setLayoutManager(
                 new StaggeredGridLayoutManager(
-                        2, StaggeredGridLayoutManager.HORIZONTAL));
+                        3, StaggeredGridLayoutManager.HORIZONTAL));
 
         return view ;
     }
@@ -139,16 +142,7 @@ public class FindFragment extends Fragment {
             String url = Common.URL + "ActServletAndroid";
             int id = actVO.getActID();
             new GetImageTask(url, id, imageSize, myViewHolder.ivActImg).execute();
-//            int limitStr = 12;
-//            String name = actVO.getActName();
-//            StringBuffer nameSim = new StringBuffer();
-//            if(name.length() >= limitStr){
-//                for(int i= 0; i < limitStr; i++){
-//                    nameSim = nameSim.append(name.charAt(i));
-//                }
-//                nameSim.append("...");
-//                name = nameSim.toString();
-//            }
+
             myViewHolder.tvActName.setText(actVO.getActName());
             myViewHolder.tvActDate.setText(actVO.getActStartDate());
             myViewHolder.ivActImg.setOnClickListener(new View.OnClickListener(){

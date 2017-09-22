@@ -15,6 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCnHFjzqDH5rSaTCSoGExdDZ4qwOQVjtHY"/>
+
         <activity android:name=".login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +30,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".login.LogInActivity" />
         <activity android:name=".act.ActDetailActivity" />
-        <activity android:name=".club.ClubDetailActivity"></activity>
+        <activity android:name=".club.ClubDetailActivity" />
     </application>
 
 </manifest>

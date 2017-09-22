@@ -14,10 +14,10 @@ public class Common {
     // Android官方模擬器連結本機web server可以直接使用 http://10.0.2.2
 //	public final static String URL = "http://192.168.196.157:8080/ImageToJson_Login_Web/DataUploadServlet";
 
+
+//    public final static String URL = "http://192.168.196.166:8081/ChuMeet_Web/";
     public final static String URL = "http://10.0.2.2:8081/ChuMeet_Web/";
 
-    public final static String actURL = "http://10.0.2.2:8081/ChuMeet_Web/ActivityServlet";
-    public final static String clubURL = "http://10.0.2.2:8081/ChuMeet_Web/ClubServletAndroid";
     public final static String PREF_FILE = "preference";
     private static final String TAG = "Common";
 

@@ -1,17 +1,30 @@
 package iii.com.chumeet.act;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
-import iii.com.chumeet.fragment.GetImageTask;
+import iii.com.chumeet.Task.GetImageTask;
+import iii.com.chumeet.login.MemVO;
 
-public class ActDetailActivity extends AppCompatActivity {
+public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "ActDetailActivity";
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView actImg;
@@ -21,6 +34,10 @@ public class ActDetailActivity extends AppCompatActivity {
     private TextView actLoc;
     private TextView acthost;
     private ActVO actVO;
+    private MemVO memVO;
+    private GoogleMap map;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +62,20 @@ public class ActDetailActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-//        Log.d(TAG, "onCreate");
+
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fmMap);
+
+        mapFragment.getMapAsync(this);
+
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         showResults();
     }
+
     private void showResults() {
         String url = Common.URL + "ActServletAndroid";
         String startDate, endDate;
@@ -63,12 +86,13 @@ public class ActDetailActivity extends AppCompatActivity {
         int id = actVO.getActID();
         try {
             new GetImageTask(url, id, imageSize, actImg).execute().get();
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
         actName.setText(actVO.getActName());
         actCont.setText(actVO.getActContent());
         actLoc.setText(actVO.getActLocName());
+        acthost.setText(memVO.getMemName());
         startDate = actVO.getActStartDate();
         endDate = actVO.getActEndDate();
 
@@ -77,5 +101,42 @@ public class ActDetailActivity extends AppCompatActivity {
         Log.d(TAG, "showResults");
     }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        this.map = map;
 
+        map.setTrafficEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+            map.setMyLocationEnabled(true);
+        }
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setZoomControlsEnabled(true);
+        if(actVO == null){
+            Common.showToast(this, R.string.msg_NoActsFound);
+        }else{
+            showMap(actVO);
+        }
+    }
+
+    private void showMap(ActVO actVO){
+        LatLng position = new LatLng(actVO.getActLat(), actVO.getActLong());
+        String snippet = getString(R.string.col_Name) + ":" + actVO.getActName() + "\n" +
+                getString(R.string.col_Address) + ":" + actVO.getActAdr();
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(position)
+                .zoom(9)
+                .build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory
+                .newCameraPosition(cameraPosition);
+        map.animateCamera(cameraUpdate);
+
+        map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(actVO.getActName())
+                .snippet(snippet));
+
+//        map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, actVO));
+
+    }
 }

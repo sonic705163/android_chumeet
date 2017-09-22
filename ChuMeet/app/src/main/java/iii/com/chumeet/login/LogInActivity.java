@@ -16,10 +16,16 @@ import com.google.gson.JsonObject;
 import iii.com.chumeet.Common;
 import iii.com.chumeet.HomeActivity;
 import iii.com.chumeet.R;
-import iii.com.chumeet.fragment.MyTask;
+import iii.com.chumeet.Task.MyTask;
 
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
+
+
+
+
+
+
 
 public class LogInActivity extends AppCompatActivity {
     private final static String TAG = "LogInActivity";
@@ -112,6 +118,7 @@ public class LogInActivity extends AppCompatActivity {
             try {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("Email", email);
+                jsonObject.addProperty("Password", password);
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 //                memVO = new LoginTask(url, email, password).execute().get();
@@ -121,7 +128,7 @@ public class LogInActivity extends AppCompatActivity {
             } catch (Exception e){
                 Log.e(TAG, e.toString());
             }
-            if(email.equals(memVO.getMemEmail()) && password.equals(memVO.getMemPw())){
+            if(memVO != null){
                 answer = true;
             }else {
                 answer = false;

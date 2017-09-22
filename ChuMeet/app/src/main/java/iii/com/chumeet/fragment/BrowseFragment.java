@@ -26,6 +26,8 @@ import java.util.List;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
+import iii.com.chumeet.Task.GetImageTask;
+import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.club.ClubDetailActivity;
 import iii.com.chumeet.club.ClubVO;
 

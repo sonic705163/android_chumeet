@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
-import iii.com.chumeet.fragment.GetImageTask;
+import iii.com.chumeet.Task.GetImageTask;
 
 public class ClubDetailActivity extends AppCompatActivity {
     private static final String TAG = "ClubDetailActivity";

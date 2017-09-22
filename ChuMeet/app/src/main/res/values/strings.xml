@@ -84,4 +84,9 @@
     <string name="btEditProfile">Edit Profile</string>
 
 
+
+    <string name="col_Name">Name</string>
+    <string name="col_Address">Address</string>
+
+
 </resources>
