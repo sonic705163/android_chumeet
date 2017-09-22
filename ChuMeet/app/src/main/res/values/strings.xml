@@ -69,6 +69,9 @@
 
     <string name="navMessage">Message</string>
     <string name="msg_InvalidUserOrPassword">Email or password invalid</string>
+    <string name="msg_InvalidCheckEmail">Email invalid</string>
+    <string name="msg_CheckEmailOK">Email OK!!!</string>
+    <string name="msg_CheckEmailRepeat">Email repeat</string>
     <string name="toolbar1">Profile</string>
     <string name="toolbar2">You\'re going</string>
     <string name="toolbar3">Messages</string>
@@ -84,9 +87,10 @@
     <string name="btEditProfile">Edit Profile</string>
 
 
-
     <string name="col_Name">Name</string>
     <string name="col_Address">Address</string>
+    <string name="editName">Name</string>
+    <string name="confirm_password">Confirm Password</string>
 
 
 </resources>

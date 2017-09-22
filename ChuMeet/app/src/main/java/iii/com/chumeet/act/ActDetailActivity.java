@@ -34,9 +34,8 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     private TextView actLoc;
     private TextView acthost;
     private ActVO actVO;
-    private MemVO memVO;
+    //    private MemVO memVO;
     private GoogleMap map;
-
 
 
     @Override
@@ -50,7 +49,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         actCont = (TextView) findViewById(R.id.tvClubDetContent);
         actDate = (TextView) findViewById(R.id.tvActDetDate);
         actLoc = (TextView) findViewById(R.id.tvActDetLoc);
-        acthost = (TextView) findViewById(R.id.tvActDetHost);
+//        acthost = (TextView) findViewById(R.id.tvActDetHost);
 
         swipeRefreshLayout =
                 (SwipeRefreshLayout) findViewById(R.id.actDetailRefresh);
@@ -92,7 +91,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         actName.setText(actVO.getActName());
         actCont.setText(actVO.getActContent());
         actLoc.setText(actVO.getActLocName());
-        acthost.setText(memVO.getMemName());
+//        acthost.setText(memVO.getMemName());
         startDate = actVO.getActStartDate();
         endDate = actVO.getActEndDate();
 
@@ -106,8 +105,10 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         this.map = map;
 
         map.setTrafficEnabled(true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
-            map.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat
+                .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
         }
         map.setMyLocationEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
