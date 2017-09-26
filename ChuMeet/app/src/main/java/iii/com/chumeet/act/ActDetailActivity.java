@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
-import iii.com.chumeet.login.MemVO;
 
 public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "ActDetailActivity";

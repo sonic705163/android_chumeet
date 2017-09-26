@@ -1,11 +1,13 @@
 package iii.com.chumeet.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,15 +16,33 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
+import iii.com.chumeet.Task.GetImageTask;
+import iii.com.chumeet.Task.MyTask;
+import iii.com.chumeet.mem.MemVO;
+
+import static android.content.Context.MODE_PRIVATE;
+import static iii.com.chumeet.Common.networkConnected;
+import static iii.com.chumeet.Common.showToast;
+import static java.lang.Integer.parseInt;
 
 
 public class ProfileFragment extends Fragment {
-    Toolbar toolbar ;
-//    SharedPreferences pref =  this.getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+    private static final String TAG = "ProfileFragment";
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ImageView MemImg;
-    private TextView MemName;
+    private Toolbar toolbar ;
+    private ImageView memImg;
+    private TextView memName;
+    private MemVO memVO;
+
+
 
 
 
@@ -32,10 +52,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-
-
-
-
+        memImg = (ImageView) view.findViewById(R.id.ivProfileImg);
+        memName = (TextView) view.findViewById(R.id.tvProfileName);
 
         swipeRefreshLayout =
                 (SwipeRefreshLayout) view.findViewById(R.id.profileRefresh);
@@ -43,7 +61,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                showMemProfile();
+                showResults();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -63,11 +81,59 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        showMemProfile();
+        showResults();
     }
 
 
-    public void showMemProfile(){
+    public void showResults(){
+        String url = Common.URL + "MemServletAndroid";
+        int imageSize = getResources().getDisplayMetrics().widthPixels / 4;
+
+        if(networkConnected(getActivity())){
+
+            SharedPreferences pref = this.getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+            String memID = pref.getString("id", "");
+            int id = parseInt(memID);
+
+            MemVO memVO = null;
+
+            try {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "findById");
+                jsonObject.addProperty("id", id);
+                String jsonOut = jsonObject.toString();
+                String jsonIn = new MyTask(url, jsonOut).execute().get();
+
+                Gson gson = new Gson();
+                Type type = new TypeToken<MemVO>(){}.getType();
+                memVO = gson.fromJson(jsonIn, type);
+
+            }catch (Exception e){
+                Log.e(TAG, e.toString());
+            }
+
+            if(memVO == null){
+                showToast(getActivity(), R.string.msg_NoClubsFound);
+            }else{
+                memName.setText(memVO.getMemName());
+            }
+
+            try{
+                new GetImageTask(url, id, imageSize, memImg).execute().get();
+            }catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+
+        }else{
+            showToast(getActivity(), R.string.msg_NoNetwork);
+        }
+
+        Log.d(TAG, "showResults");
+//        Bundle bundle = getActivity().getIntent().getExtras();
+//        memVO = (MemVO) bundle.getSerializable("memVO");
+//       if (memVO != null){
+//           memName.setText(memVO.getMemName());
+//       }
 
     }
 

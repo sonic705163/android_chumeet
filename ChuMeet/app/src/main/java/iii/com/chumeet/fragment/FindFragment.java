@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -31,9 +30,12 @@ import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.act.ActDetailActivity;
 import iii.com.chumeet.act.ActVO;
 
+import static iii.com.chumeet.Common.networkConnected;
+import static iii.com.chumeet.Common.showToast;
+
 public class FindFragment extends Fragment {
     private static final String TAG = "FindFragment";
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvActs;
     private Toolbar toolbar ;
 
@@ -45,22 +47,22 @@ public class FindFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_find, container, false);
 
-        swipeRefreshLayout =
-                (SwipeRefreshLayout) view.findViewById(R.id.findRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                showAllActs();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+//        swipeRefreshLayout =
+//                (SwipeRefreshLayout) view.findViewById(R.id.findRefresh);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeRefreshLayout.setRefreshing(true);
+//                showAllActs();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 
         rvActs = (RecyclerView) view.findViewById(R.id.rvActs);
 //        rvActs.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvActs.setLayoutManager(
                 new StaggeredGridLayoutManager(
-                        3, StaggeredGridLayoutManager.HORIZONTAL));
+                        1, StaggeredGridLayoutManager.HORIZONTAL));
 
         return view ;
     }
@@ -85,7 +87,7 @@ public class FindFragment extends Fragment {
     }
 
     private void showAllActs(){
-        if(Common.networkConnected(getActivity())){
+        if(networkConnected(getActivity())){
             String url = Common.URL + "ActServletAndroid";
             List<ActVO> actVOs = null;
             try{
@@ -93,7 +95,7 @@ public class FindFragment extends Fragment {
                 jsonObject.addProperty("action", "getAll");
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
-                Log.d(TAG, jsonIn);
+
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<ActVO>>(){}.getType();
                 actVOs = gson.fromJson(jsonIn, listType);
@@ -101,13 +103,12 @@ public class FindFragment extends Fragment {
                 Log.e(TAG, e.toString());
             }
             if(actVOs == null || actVOs.isEmpty()){
-                Common.showToast(getActivity(), R.string.msg_NoActsFound);
+                showToast(getActivity(), R.string.msg_NoActsFound);
             }else{
                 rvActs.setAdapter(new ActsRecyclerViewAdapter(getActivity(), actVOs));
-
             }
         }else{
-            Common.showToast(getActivity(), R.string.msg_NoNetwork);
+            showToast(getActivity(), R.string.msg_NoNetwork);
         }
     }
 
@@ -141,6 +142,7 @@ public class FindFragment extends Fragment {
             final ActVO actVO = actVOs.get(postion);
             String url = Common.URL + "ActServletAndroid";
             int id = actVO.getActID();
+
             new GetImageTask(url, id, imageSize, myViewHolder.ivActImg).execute();
 
             myViewHolder.tvActName.setText(actVO.getActName());

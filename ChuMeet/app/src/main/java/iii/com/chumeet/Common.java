@@ -24,8 +24,13 @@ public class Common {
 
     // check if the device connect to the network
     public static boolean networkConnected(Activity activity) {
+
+// get the ConnectivityManager for handling management of network connections.
         ConnectivityManager conManager =
                 (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+ // 取得正在運行中的網路資訊，如果沒有網路存在會取得null
+// 判斷是否有Internet
         NetworkInfo networkInfo = conManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }

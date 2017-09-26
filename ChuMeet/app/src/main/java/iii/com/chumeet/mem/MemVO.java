@@ -1,4 +1,4 @@
-package iii.com.chumeet.login;
+package iii.com.chumeet.mem;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -34,6 +34,15 @@ public class MemVO implements Serializable {
         this.memEmail= memEmail;
         this.memPw = memPw;
     }
+
+
+    public MemVO(Integer memID, String memEmail, String memPw) {
+        this.memID = memID;
+        this.memEmail= memEmail;
+        this.memPw = memPw;
+    }
+
+//    public MemVO(String memName, String memEmail, String password)
 
 
     public Integer getMemID() {

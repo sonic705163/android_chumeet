@@ -26,8 +26,8 @@ public class HomeActivity extends AppCompatActivity{
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item){
-//Fragment創造與交換
 
+//Fragment創造與交換
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 //            FindFragment findFragment = new FindFragment();
@@ -35,7 +35,6 @@ public class HomeActivity extends AppCompatActivity{
 //            GoingFragment goingFragment = new GoingFragment();
 //            MessageFragment messageFragment = new MessageFragment();
 //            ProfileFragment profileFragment = new ProfileFragment();
-//
 //
 //            transaction.add(R.id.content, findFragment, "Tab1");
 //            transaction.add(R.id.content, browseFragment, "Tab2");
@@ -47,12 +46,6 @@ public class HomeActivity extends AppCompatActivity{
 //            transaction.hide(messageFragment);
 //            transaction.hide(profileFragment);
 //            transaction.commit();
-//
-//
-
-
-
-
 
             switch (item.getItemId()){
                 case R.id.navFind:

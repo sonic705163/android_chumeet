@@ -21,7 +21,7 @@ import iii.com.chumeet.R;
  */
 
  public class GetImageTask extends AsyncTask<Object, Integer, Bitmap>{
-        private final static String TAG = "GetImageTask";
+        private final static String TAG = "ImgTask";
         private String url;
         private int id, imageSize;
         private ImageView imageView;
@@ -77,15 +77,19 @@ import iii.com.chumeet.R;
         con.setRequestMethod("POST");
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
         bw.write(jsonOut);
-        Log.d(TAG, "jsonOut:" + jsonOut);
+
+        Log.d(TAG, "jsonOut: " + jsonOut);
         bw.close();
 
         int responseCode = con.getResponseCode();
 
         if(responseCode == 200){
             bitmap = BitmapFactory.decodeStream(con.getInputStream());
+
+//            Log.d(TAG, "response code: " + responseCode);
         }else{
-            Log.d(TAG, "response code:" + responseCode);
+
+            Log.d(TAG, "response code: " + responseCode);
         }
         con.disconnect();
         return bitmap;

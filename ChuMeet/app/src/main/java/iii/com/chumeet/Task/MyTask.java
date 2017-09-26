@@ -13,7 +13,7 @@ import java.net.URL;
 
 
 public class MyTask extends AsyncTask<String, Integer, String> {
-        private final static String TAG = "MyTask";
+        private final static String TAG = " MyTask";
         private String url, outStr;
 
     public MyTask(String url, String outStr){
@@ -44,7 +44,7 @@ public class MyTask extends AsyncTask<String, Integer, String> {
         con.setRequestProperty("charset", "UTF-8");
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
         bw.write(outStr);
-        Log.d(TAG, "outStr: " + outStr);
+        Log.d(TAG, "outStr:  " + outStr);
         bw.close();
 
         int responseCode = con.getResponseCode();
@@ -59,7 +59,7 @@ public class MyTask extends AsyncTask<String, Integer, String> {
             Log.d(TAG, "response code: " + responseCode);
         }
         con.disconnect();
-        Log.d(TAG, "inStr: " + inStr);
+        Log.d(TAG, "inStr:   " + inStr);
         return inStr.toString();
     }
 }

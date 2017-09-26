@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +36,7 @@ import static iii.com.chumeet.Common.showToast;
 
 public class BrowseFragment extends Fragment {
     private final static String TAG = "BrowseFragment";
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvClubs;
     private Toolbar toolbar ;
 
@@ -49,23 +48,23 @@ public class BrowseFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
 
-        swipeRefreshLayout =
-                (SwipeRefreshLayout) view.findViewById(R.id.browseRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                showAllClubs();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+//        swipeRefreshLayout =
+//                (SwipeRefreshLayout) view.findViewById(R.id.browseRefresh);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeRefreshLayout.setRefreshing(true);
+//                showAllClubs();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 
         rvClubs = (RecyclerView) view.findViewById(R.id.rvClubs);
 
-        rvClubs.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        rvClubs.setLayoutManager(
-//                new StaggeredGridLayoutManager(
-//                        1, StaggeredGridLayoutManager.HORIZONTAL));
+//        rvClubs.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvClubs.setLayoutManager(
+                new StaggeredGridLayoutManager(
+                        1, StaggeredGridLayoutManager.HORIZONTAL));
 
         return view;
     }
@@ -96,7 +95,7 @@ public class BrowseFragment extends Fragment {
                 jsonObject.addProperty("action", "getAll");
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
-                Log.d(TAG, jsonIn);
+
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<ClubVO>>(){}.getType();
                 clubVOs = gson.fromJson(jsonIn, listType);
@@ -141,23 +140,25 @@ public class BrowseFragment extends Fragment {
             final ClubVO clubVO = clubVOs.get(position);
             String url = Common.URL + "ClubServletAndroid";
             int id = clubVO.getClubId();
+
 //抓圖片
             new GetImageTask(url, id, imageSize, myViewHolder.ivClubImg).execute();
-            myViewHolder.tvClubName.setText(clubVO.getClubName());
-            myViewHolder.tvClubDate.setText(clubVO.getClubStartDate());
-            myViewHolder.ivClubImg.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    Intent intent = new Intent(getActivity(), ClubDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("clubVO", clubVO);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                myViewHolder.tvClubName.setText(clubVO.getClubName());
+                myViewHolder.tvClubDate.setText(clubVO.getClubStartDate());
+                myViewHolder.ivClubImg.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        Intent intent = new Intent(getActivity(), ClubDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("clubVO", clubVO);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 
-                }
-            });
+                    }
+                });
 
-//            myViewHolder.itemView.setOnLongClickListener();
+
+
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {

@@ -50,7 +50,7 @@
                         card_view:cardCornerRadius="50dp">
 
                         <ImageView
-                            android:id="@+id/ivMemProfile"
+                            android:id="@+id/ivProfileImg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -60,7 +60,7 @@
                     </android.support.v7.widget.CardView>
 
                     <TextView
-                        android:id="@+id/tvMemName"
+                        android:id="@+id/tvProfileName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/cardView"
@@ -72,7 +72,7 @@
                         android:text="TextView" />
 
                     <Button
-                        android:id="@+id/btMemEditProfile"
+                        android:id="@+id/btnEditProfile"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

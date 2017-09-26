@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ChuMeet</string>
+    <string name="app_name">ChuMeet啾咪</string>
     <!--APP歡迎頁面、註冊按鈕 -->
     <string name="btSignUp">SIGN UP</string>
     <string name="txv_1">We are what we do</string>
-    <string name="btLogIn_0">ALREADY A MEMBER? LOG IN</string>
+    <string name="btLogIn_0">會員登入</string>
     <!--APP會員登入頁面、外部帳號登入-->
     <string name="btFB">Continue with Facebook</string>
     <string name="btGoogle">Continue with Google</string>
@@ -66,17 +67,14 @@
     <string name="txvActName">ActName</string>
     <string name="txvActIntro">ActIntro</string>
     <string name="txvActDate">ActDate</string>
-<!--msg-->
+
     <string name="navMessage">Message</string>
-    <string name="msg_InvalidUserOrPassword">Email or password invalid</string>
+
+    <string name="msg_InvalidUserOrPassword">請輸入帳號或密碼</string>
     <string name="msg_InvalidCheckEmail">Email invalid</string>
+    <string name="msg_SignupInvalidName">請輸入姓名</string>
     <string name="msg_CheckEmailOK">Email OK!!!</string>
     <string name="msg_CheckEmailRepeat">Email repeat</string>
-    <string name="msg_SignUpInvalidEmail">Email invalid</string>
-    <string name="msg_NoCameraApp">No camera app found</string>
-    <string name="msg_SignUpInvalidName">Name invalid</string>
-    <string name="msg_SignUpInvalidPassword">Password invalid</string>
-    <string name="msg_SignUpInvalidConfirmPassword">Password invalid or not confirm </string>
 
     <string name="toolbar1">Profile</string>
     <string name="toolbar2">You\'re going</string>
@@ -95,10 +93,7 @@
 
     <string name="col_Name">Name</string>
     <string name="col_Address">Address</string>
-    <string name="editName">Name</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="tvEmailCheck">Check Email</string>
-    <string name="btSignUp2">Sign Up</string>
-
-
+    <string name="editName">姓名</string>
+    <string name="confirm_password">確認密碼</string>
+    <string name="tvEmailCheck">檢查Email是否重複</string>
 </resources>
