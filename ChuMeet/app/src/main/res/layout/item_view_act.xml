@@ -38,7 +38,7 @@
                 android:background="@android:color/background_light"
                 android:maxLength="7"
                 android:paddingLeft="6dp"
-                android:text="Nameh"
+                android:text="Name"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
 

@@ -18,7 +18,7 @@ public class MemVO implements Serializable {
     private String memName;
     private Integer memGender;
     private Timestamp memBD;
-    private Integer memPhone;
+    private String memPhone;
     private byte[] memAvatar;
     private Timestamp memJoinDate;
     private Integer memLoginNum;
@@ -105,10 +105,10 @@ public class MemVO implements Serializable {
     public void setMemBD(Timestamp memBD) {
         this.memBD = memBD;
     }
-    public Integer getMemPhone() {
+    public String getMemPhone() {
         return memPhone;
     }
-    public void setMemPhone(Integer memPhone) {
+    public void setMemPhone(String memPhone) {
         this.memPhone = memPhone;
     }
     public byte[] getMemAvatar() {

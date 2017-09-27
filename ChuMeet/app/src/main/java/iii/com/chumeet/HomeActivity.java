@@ -1,11 +1,15 @@
 package iii.com.chumeet;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,9 +18,10 @@ import iii.com.chumeet.fragment.FindFragment;
 import iii.com.chumeet.fragment.GoingFragment;
 import iii.com.chumeet.fragment.MessageFragment;
 import iii.com.chumeet.fragment.ProfileFragment;
+import iii.com.chumeet.login.MainActivity;
 
 public class HomeActivity extends AppCompatActivity{
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
 
 
@@ -88,17 +93,48 @@ public class HomeActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_profile_settings, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    //監聽返回鍵點擊事件，並創建一個退出對話框
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            new AlertDialog.Builder(this)
+                    .setMessage("Do you want to close it?")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+
+//沒這樣寫，應用程式都關不掉
+                            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("Exit me", true);
+                            startActivity(intent);
+                            finish();
+//   以下要寫在MainActivity
+//   Then nCreate() method add this to finish the MainActivity
+//   if( getIntent().getBooleanExtra("Exit me", false)){
+//     finish();
+//   }
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
         }
+        return true;
     }
 }

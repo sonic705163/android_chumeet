@@ -1,13 +1,16 @@
 package iii.com.chumeet.club;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import iii.com.chumeet.Common;
+import iii.com.chumeet.HomeActivity;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 
@@ -66,5 +69,19 @@ public class ClubDetailActivity extends AppCompatActivity {
 
 
         Log.d(TAG, "showResults");
+    }
+
+
+    //監聽返回鍵點擊事件
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+
+            Intent intent = new Intent(ClubDetailActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+        return true;
     }
 }

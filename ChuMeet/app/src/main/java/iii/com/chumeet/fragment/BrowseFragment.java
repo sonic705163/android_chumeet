@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -75,7 +74,7 @@ public class BrowseFragment extends Fragment {
 
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar_browse);
         toolbar.setTitle("Browse");
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
     }
@@ -131,7 +130,7 @@ public class BrowseFragment extends Fragment {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-            View itemView = layoutInflater.inflate(R.layout.itemview_club, parent, false);
+            View itemView = layoutInflater.inflate(R.layout.item_view_club, parent, false);
             return new MyViewHolder(itemView);
         }
 

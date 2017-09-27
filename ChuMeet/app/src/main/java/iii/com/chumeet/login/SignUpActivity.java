@@ -204,6 +204,7 @@ public class SignUpActivity extends AppCompatActivity {
                             setResult(RESULT_OK);
 
                             Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
 
                         }else{
@@ -237,6 +238,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 //檢查裝置有沒有應用程式可以執行拍照動作，如果有則數量會大於0
     public boolean isIntentAvailable(Context context, Intent intent){

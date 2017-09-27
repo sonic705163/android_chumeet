@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="iii.com.chumeet">
+    package="iii.com.chumeet">
 
-    <uses-permission android:name="android.permission.INTERNET"/>                   //允許使用網路權限
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>       //Allows applications to access information about networks
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>     //允許應用程式寫入裝置上的外部記憶卡
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>     //允許使用網路定位權限
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>       //允許使用GPS權限
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    //允許使用網路權限
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    //Allows applications to access information about networks
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    //允許應用程式寫入裝置上的外部記憶卡
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    //允許使用網路定位權限
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    //允許使用GPS權限
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_chu"
@@ -16,36 +20,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCnHFjzqDH5rSaTCSoGExdDZ4qwOQVjtHY"/>
+            android:value="AIzaSyCnHFjzqDH5rSaTCSoGExdDZ4qwOQVjtHY" />
 
         <activity android:name=".login.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"/>
-        <activity android:name=".login.LogInActivity"/>
-        <activity android:name=".act.ActDetailActivity"/>
-        <activity android:name=".club.ClubDetailActivity"/>
-        <activity android:name=".login.SignUpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".login.LogInActivity" />
+        <activity android:name=".act.ActDetailActivity" />
+        <activity android:name=".club.ClubDetailActivity" />
+        <activity android:name=".login.SignUpActivity" />
+        <activity
+            android:name=".club.ClubInsertActivity"
+            android:label="@string/title_activity_club_insert"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.ActInsertActivity"
+            android:label="@string/title_activity_act_insert2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

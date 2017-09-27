@@ -74,12 +74,8 @@ public class LogInActivity extends AppCompatActivity {
 
                     setResult(RESULT_OK);       //防使用者亂寫
 
-
-
                     Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("memVO", memVO);
-//                    intent.putExtras(bundle);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
                 }else{
@@ -102,28 +98,13 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-//如果在其他設備修改密碼
-//先檢查一下密碼
-    @Override
-    protected void onStart(){
-        super.onStart();
-//        SharedPreferences pref = getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-//        boolean login = pref.getBoolean("login", false);
-//        if(login){
-//            String email = pref.getString("email","");
-//            String password = pref.getString("password", "");
-//            if(isUserValid(email, password)){
-//                setResult(RESULT_OK);
-//                finish();
-//            }else{
-//                showMessage(R.string.msg_InvalidUserOrPassword);
-//            }
-//        }
-    }
+
 
     private void showMessage(int msgResId) {
         tvMessage.setText(msgResId);
     }
+
+
 
     private boolean isUserValid(String email, String password) {
         boolean answer = false;

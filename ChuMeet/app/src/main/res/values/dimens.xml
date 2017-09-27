@@ -1,15 +1,17 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-<!--解決報錯BUG-->
-    <item name="visible" type="id"/>
-    <item name="masked" type="id"/>
-<!-- 卡片尺寸設定 -->
+    <!--解決報錯BUG-->
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
+    <!-- 卡片尺寸設定 -->
     <dimen name="textSize">16dp</dimen>
     <dimen name="spaceVertical">6dp</dimen>
     <dimen name="textMargin">2dp</dimen>
     <dimen name="cardHeight">200dp</dimen>
     <dimen name="imageHeight">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 
 
 </resources>

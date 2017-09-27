@@ -11,6 +11,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,10 +31,12 @@ import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.act.ActDetailActivity;
+import iii.com.chumeet.act.ActInsertActivity;
 import iii.com.chumeet.act.ActVO;
 
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
+
 
 public class FindFragment extends Fragment {
     private static final String TAG = "FindFragment";
@@ -74,10 +79,39 @@ public class FindFragment extends Fragment {
 
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar_find);
         toolbar.setTitle("Find");
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+
+        //一旦调用((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        //就会导致ActivityonCreateOptionsMenu()方法的调用, 而Activity会根据其中Fragment是否设置了setHasOptionsMenu(true)来调用Fragment的
+        //onCreateOptionsMenu()方法, 调用顺序是树形的, 按层级调用, 中间如果有false则跳过.
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        //设置导航图标、添加菜单点击事件要在setSupportActionBar方法之后
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_insert_act:
+                        Intent intent = new Intent(getActivity(), ActInsertActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
     }
+
+    //即先clear()一下, 這樣按鈕就只有Fragment中設置的自己的了, 不會有Activity中的按鈕
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_menu_find, menu);
+    }
+
+
 
 //onStart运行时间位于onViewCreated之后
     @Override
@@ -133,7 +167,7 @@ public class FindFragment extends Fragment {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = layoutInflater.inflate(R.layout.itemview_act, parent, false);
+            View itemView = layoutInflater.inflate(R.layout.item_view_act, parent, false);
             return new MyViewHolder(itemView);
         }
 
@@ -174,12 +208,4 @@ public class FindFragment extends Fragment {
             }
         }
     }
-//
-//    private void switchFragment(Fragment fragment) {
-//        FragmentTransaction fragmentTransaction =
-//                getFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.body, fragment);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
-//    }
 }

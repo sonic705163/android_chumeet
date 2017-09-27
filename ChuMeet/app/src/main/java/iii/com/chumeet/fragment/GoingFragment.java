@@ -2,7 +2,6 @@ package iii.com.chumeet.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,7 @@ public class GoingFragment extends Fragment {
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar_going);
         toolbar.setTitle("You're going");
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {

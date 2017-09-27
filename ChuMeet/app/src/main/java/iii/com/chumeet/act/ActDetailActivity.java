@@ -1,12 +1,14 @@
 package iii.com.chumeet.act;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,8 +22,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import iii.com.chumeet.Common;
+import iii.com.chumeet.HomeActivity;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
+import iii.com.chumeet.mem.MemVO;
 
 public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "ActDetailActivity";
@@ -33,7 +37,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     private TextView actLoc;
     private TextView acthost;
     private ActVO actVO;
-    //    private MemVO memVO;
+    private MemVO memVO;
     private GoogleMap map;
 
 
@@ -48,7 +52,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         actCont = (TextView) findViewById(R.id.tvClubDetContent);
         actDate = (TextView) findViewById(R.id.tvActDetDate);
         actLoc = (TextView) findViewById(R.id.tvActDetLoc);
-//        acthost = (TextView) findViewById(R.id.tvActDetHost);
+        acthost = (TextView) findViewById(R.id.tvActDetHost);
 
         swipeRefreshLayout =
                 (SwipeRefreshLayout) findViewById(R.id.actDetailRefresh);
@@ -90,7 +94,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         actName.setText(actVO.getActName());
         actCont.setText(actVO.getActContent());
         actLoc.setText(actVO.getActLocName());
-//        acthost.setText(memVO.getMemName());
+        acthost.setText(actVO.getMemName());
         startDate = actVO.getActStartDate();
         endDate = actVO.getActEndDate();
 
@@ -138,5 +142,19 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
 
 //        map.setInfoWindowAdapter(new MyInfoWindowAdapter(this, actVO));
 
+    }
+
+
+    //監聽返回鍵點擊事件
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+
+            Intent intent = new Intent(ActDetailActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+        return true;
     }
 }

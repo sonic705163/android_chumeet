@@ -1,5 +1,6 @@
 package iii.com.chumeet.fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,6 +28,7 @@ import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
+import iii.com.chumeet.login.MainActivity;
 import iii.com.chumeet.mem.MemVO;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -43,7 +46,10 @@ public class ProfileFragment extends Fragment {
     private MemVO memVO;
 
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
     @Nullable
@@ -71,11 +77,41 @@ public class ProfileFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar_profile);
         toolbar.setTitle("Profile");
-//        setHasOptionsMenu(true);
-//        toolbar.setTitle("Parent Fragment");
+
+        setHasOptionsMenu(true);
+
+                            //一旦调用((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+                            //就会导致ActivityonCreateOptionsMenu()方法的调用, 而Activity会根据其中Fragment是否设置了setHasOptionsMenu(true)来调用Fragment的
+                            //onCreateOptionsMenu()方法, 调用顺序是树形的, 按层级调用, 中间如果有false则跳过.
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+                            //设置导航图标、添加菜单点击事件要在setSupportActionBar方法之后
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_logout:
+                        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+                        pref.edit().putBoolean("login", false).apply();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    //即先clear()一下, 這樣按鈕就只有Fragment中設置的自己的了, 不會有Activity中的按鈕
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_menu_profile, menu);
     }
 
     @Override
@@ -137,37 +173,9 @@ public class ProfileFragment extends Fragment {
 
     }
 
-//即先clear()一下, 這樣按鈕就只有Fragment中設置的自己的了, 不會有Activity中的按鈕
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.toolbar_profile_settings, menu);
-    }
 
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-//
-//
-//        setHasOptionsMenu(true);
-////设置导航图标、添加菜单点击事件要在setSupportActionBar方法之后
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.action_settings:
-//
-//                        pref.edit().putBoolean("login", false).apply();
-//
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
+
+
 
 }
