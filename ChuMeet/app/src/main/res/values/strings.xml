@@ -99,11 +99,16 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="tvEmailCheck">Check Email</string>
     <string name="btSignUp2">Sign Up</string>
-    <string name="toolbar_insert">insert</string>
+    <string name="menu_toolbar_insert">insert</string>
     <string name="title_activity_club_insert">ClubInsertActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_act_insert2">ActInsert2Activity</string>
+    <string name="tvActInsertTab1">Give your Chumeet a name:</string>
+    <string name="edActInsert_name">name</string>
+    <string name="tvActInsertTab1_Location">Location</string>
+    <string name="tvActIsertTab2_poi">category</string>
+    <string name="ivTakepicture">TakePicture</string>
+    <string name="icChuMeet">ChuMeet</string>
 
 
 </resources>

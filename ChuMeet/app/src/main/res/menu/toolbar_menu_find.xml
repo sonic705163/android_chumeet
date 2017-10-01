@@ -7,6 +7,6 @@
     <item
         android:id="@+id/action_insert_act"
         android:icon="@drawable/insert"
-        android:title="@string/toolbar_insert"
+        android:title="@string/menu_toolbar_insert"
         app:showAsAction="always" />
 </menu>

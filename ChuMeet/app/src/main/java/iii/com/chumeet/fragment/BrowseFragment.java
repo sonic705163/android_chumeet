@@ -85,7 +85,7 @@ public class BrowseFragment extends Fragment {
         showAllClubs();
     }
 
-    private  void showAllClubs(){
+    private void showAllClubs(){
         if(networkConnected(getActivity())){
             String url = Common.URL + "ClubServletAndroid";
             List<ClubVO> clubVOs = null;

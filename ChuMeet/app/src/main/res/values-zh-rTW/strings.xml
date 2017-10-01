@@ -72,7 +72,6 @@
 
     <string name="msg_InvalidUserOrPassword">請輸入帳號或密碼</string>
     <string name="msg_InvalidCheckEmail">Email invalid</string>
-    <string name="msg_SignupInvalidName">請輸入姓名</string>
     <string name="msg_CheckEmailOK">Email OK!!!</string>
     <string name="msg_CheckEmailRepeat">Email repeat</string>
 
@@ -96,4 +95,26 @@
     <string name="editName">姓名</string>
     <string name="confirm_password">確認密碼</string>
     <string name="tvEmailCheck">檢查Email是否重複</string>
+    <string name="tvActInsertTab1">先幫活動取個好聽的名字吧！</string>
+    <string name="tvActInsertTab1_Location">舉辦地點在哪兒呢？</string>
+    <string name="tvActIsertTab2_poi">活動分類是？</string>
+    <string name="msg_SignUpInvalidEmail">請輸入Email</string>
+    <string name="msg_SignUpInvalidName">請輸入姓名</string>
+    <string name="msg_SignUpInvalidPassword">請輸入密碼</string>
+    <string name="tvActInsertTab2_time">活動時間設定</string>
+    <string name="tvAct_StartDatePicker">活動舉辦時間</string>
+    <string name="tvAct_EndDatePicker">活動結束時間</string>
+    <string name="tvAct_RegisterEndDatePicker">報名截止時間</string>
+    <string name="tvAct_RegisterStartDatePicker">報名開始時間</string>
+    <string name="ctPoi_1">運動</string>
+    <string name="ctPoi_2">學習</string>
+    <string name="ctPoi_3">餐聚</string>
+    <string name="ctPoi_4">藝文</string>
+    <string name="ctPoi_5">電影</string>
+    <string name="ctPoi_6">電競</string>
+    <string name="ctPoi_7">戶外</string>
+    <string name="ctPoi_8">寵物</string>
+    <string name="ctPoi_9">其他</string>
+    <string name="tvActInsert_content">活動詳細內容</string>
+    <string name="tvActInsert_agreed">啾咪是一個友善熱情的網站，請同意我們的使用條款</string>
 </resources>

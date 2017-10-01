@@ -31,7 +31,7 @@ import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.act.ActDetailActivity;
-import iii.com.chumeet.act.ActInsertActivity;
+import iii.com.chumeet.act.ActInsert_1Activity;
 import iii.com.chumeet.act.ActVO;
 
 import static iii.com.chumeet.Common.networkConnected;
@@ -95,7 +95,7 @@ public class FindFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_insert_act:
-                        Intent intent = new Intent(getActivity(), ActInsertActivity.class);
+                        Intent intent = new Intent(getActivity(), ActInsert_1Activity.class);
                         startActivity(intent);
                         break;
                 }
@@ -192,8 +192,6 @@ public class FindFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-
-//            myViewHolder.itemView.setOnLongClickListener();
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {

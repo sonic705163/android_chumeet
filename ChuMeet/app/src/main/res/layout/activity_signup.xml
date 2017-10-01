@@ -8,104 +8,20 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="iii.com.chumeet.login.SignUpActivity">
 
-    <EditText
-        android:id="@+id/etSignUpName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="179dp"
-        android:ems="10"
-        android:hint="@string/editName"
-        android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSignUpCheckEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:text="@string/tvEmailCheck"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/etSignUpEmail"
-        app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="textview" />
-
-    <EditText
-        android:id="@+id/etSignUpEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="32dp"
-        android:ems="10"
-        android:hint="@string/editEmail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintTop_toBottomOf="@+id/etSignUpName" />
-
-    <EditText
-        android:id="@+id/etSignUpPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/editPassword"
-        android:inputType="textPassword"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSignUpEmail"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginEnd="8dp" />
-
-    <EditText
-        android:id="@+id/etSignUpConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/confirm_password"
-        android:inputType="textPassword"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSignUpPassword"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginEnd="8dp" />
-
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        card_view:cardCornerRadius="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/etSignUpName">
+        android:layout_marginTop="32dp"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        card_view:cardCornerRadius="50dp">
 
 
         <ImageView
@@ -113,47 +29,111 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="TakePicture"
+            android:contentDescription="@string/ivTakepicture"
             android:onClick="onTakePictureClick"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/camera"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
+            tools:layout_editor_absoluteX="337dp"
+            tools:layout_editor_absoluteY="35dp" />
     </android.support.v7.widget.CardView>
+
+    <EditText
+        android:id="@+id/etSignUpName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:hint="@string/editName"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toLeftOf="@+id/cardView"
+        app:layout_constraintRight_toRightOf="@+id/cardView"
+        app:layout_constraintHorizontal_bias="0.495"
+        android:layout_marginTop="64dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/tvSignUpCheckEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvEmailCheck"
+        android:textSize="14sp"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="textview"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/etSignUpEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/editEmail"
+        android:inputType="textEmailAddress"
+
+        app:layout_constraintLeft_toLeftOf="@+id/etSignUpName"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpName" />
+
+    <EditText
+        android:id="@+id/etSignUpPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/editPassword"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpEmail"
+
+        app:layout_constraintLeft_toLeftOf="@+id/etSignUpEmail" />
+
+    <EditText
+        android:id="@+id/etSignUpConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpPassword"
+
+        app:layout_constraintLeft_toLeftOf="@+id/etSignUpPassword"   />
 
     <Button
         android:id="@+id/btnSignUp"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="32dp"
         android:text="@string/btSignUp2"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toBottomOf="@+id/etSignUpConfirmPassword"
         card_view:layout_constraintLeft_toLeftOf="parent"
-        card_view:layout_constraintRight_toRightOf="parent" />
+        card_view:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+
+
 
     <TextView
         android:id="@+id/tvSignUpSet"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
+
+        android:layout_marginTop="32dp"
+
         android:text="@string/txv_0"
         android:textAlignment="center"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp" />
+
+        app:layout_constraintRight_toRightOf="@+id/btnSignUp"
+
+        app:layout_constraintLeft_toLeftOf="@+id/btnSignUp" />
 
 </android.support.constraint.ConstraintLayout>

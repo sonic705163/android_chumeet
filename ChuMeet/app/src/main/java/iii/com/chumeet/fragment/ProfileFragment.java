@@ -75,6 +75,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -127,7 +128,7 @@ public class ProfileFragment extends Fragment {
 
         if(networkConnected(getActivity())){
 
-            SharedPreferences pref = this.getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
+            SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
             String memID = pref.getString("id", "");
             int id = parseInt(memID);
 
