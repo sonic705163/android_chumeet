@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,55 +31,83 @@ import iii.com.chumeet.R;
 
 public class ActInsert_1Activity extends AppCompatActivity implements OnMapReadyCallback {
     private final static String TAG = "ActInsert_1Activity";
-    private EditText etName, etLocation;
+    private EditText etName, etLocationName;
     private GoogleMap map;              //儲存地圖資訊
     private UiSettings uiSettings;      //儲存地圖UI設定
     private boolean isMapReady = false;
-
+    private Address address;
+    private Double latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_insert);
+
         findViews();
 
         SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fmMap_actInsert);
-
-                            //設定OnMapReadyCallback物件，當GoogleMap物件可以使用時會自動呼叫onMapReady()
-
+                (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.fmMap_actInsert);
         mapFragment.getMapAsync(this);
 
     }
 
     private void findViews() {
         etName = (EditText) findViewById(R.id.etActInsertName);
-        etLocation = (EditText) findViewById(R.id.etActInsertLocation);
+        etLocationName = (EditText) findViewById(R.id.etActInsertLocation);
+
         Button btNext = (Button) findViewById(R.id.btActInsert_next);
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String actName = etName.getText().toString().trim();
-                String locationName = etLocation.getText().toString().trim();
+                String locationName = etLocationName.getText().toString().trim();
 
-                Intent intent = new Intent(ActInsert_1Activity.this, ActInsert_2Activity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("actName", actName);
-                bundle.putString("locationName", locationName);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(locationName.length() > 0 && actName.length() > 0 ){
+
+                    locationNameToLatLng(locationName);
+                    latitude = address.getLatitude();
+                    longitude = address.getLongitude();
+
+                    Intent intent = new Intent(ActInsert_1Activity.this, ActInsert_2Activity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("actName", actName);
+                    bundle.putString("locationName", locationName);
+                    bundle.putDouble("Lat", latitude);
+                    bundle.putDouble("Lng", longitude);
+
+//                    Log.d("Lat", actName);
+//                    Log.d("Lat", locationName);
+//                    Log.d("Lat", latitude.toString());
+//                    Log.d("Lat", longitude.toString());
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                }else {
+                    Toast.makeText(getBaseContext(), "請輸入名稱、地點", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 
+//神奇小按鈕
+        TextView tmb = (TextView) findViewById(R.id.tvActInsertName);
+        tmb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etName.setText("JavaBA103班專題發表會");
+                etLocationName.setText("320桃園市中壢區中大路300號");
+            }
+        });
     }
 
     public void onLocationNameClick(View view){
         if (!isMapReady){
             return;
         }
-
-        EditText etLocationName = (EditText) findViewById(R.id.etActInsertLocation);
         String locationName = etLocationName.getText().toString().trim();
+
         if(locationName.length() > 0){
             locationNameToMarker(locationName);
         }else {
@@ -87,9 +116,7 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
         }
     }
 
-    private void locationNameToMarker(String locationName){
-        //新増標記前，清除舊有標記
-        map.clear();
+    private void locationNameToLatLng(String locationName){
         Geocoder geocoder = new Geocoder(getBaseContext());
         List<Address> addressList = null;
         int maxResults = 1;
@@ -111,29 +138,36 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
             Toast.makeText(getBaseContext(), R.string.msg_NoClubsFound,
                     Toast.LENGTH_SHORT).show();
 
-        }else{
+        }else {
 
             //因為當初只限定回傳1筆，所以只取第1個Address物件即可
-            Address address = addressList.get(0);
-
-            //Address物件取出緯經度並轉呈LatLng物件
-            LatLng position = new LatLng(address.getLatitude(),
-                    address.getLongitude());
-
-            //將地址取出當作標記的描述文字
-            String snippet = address.getAddressLine(0);
-
-            //將地名或地址轉成位置後在地圖打上對應標記
-            map.addMarker(new MarkerOptions().position(position)
-                    .title(locationName).snippet(snippet));
-
-            //將鏡頭焦點設定在使用者輸入的地點上
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(position).zoom(15).build();
-            map.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
-
+            address = addressList.get(0);
         }
+    }
+
+    private void locationNameToMarker(String locationName){
+        //新増標記前，清除舊有標記
+        map.clear();
+        locationNameToLatLng(locationName);
+
+        //Address物件取出緯經度並轉呈LatLng物件
+        LatLng position = new LatLng(address.getLatitude(),
+                address.getLongitude());
+
+        //將地址取出當作標記的描述文字
+        String snippet = address.getAddressLine(0);
+
+        //將地名或地址轉成位置後在地圖打上對應標記
+        map.addMarker(new MarkerOptions().position(position)
+                .title(locationName).snippet(snippet));
+
+        //將鏡頭焦點設定在使用者輸入的地點上
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(position).zoom(15).build();
+        map.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
+
+
     }
 
     @Override

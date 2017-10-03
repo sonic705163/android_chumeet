@@ -31,7 +31,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCnHFjzqDH5rSaTCSoGExdDZ4qwOQVjtHY" />
+            android:value="AIzaSyCMgw7CTr23o07lI19jFUxWz-xOlsA3bVE" />
 
         <activity android:name=".login.MainActivity">
             <intent-filter>
@@ -45,13 +45,10 @@
         <activity android:name=".act.ActDetailActivity" />
         <activity android:name=".club.ClubDetailActivity" />
         <activity android:name=".login.SignUpActivity" />
-        <activity
-            android:name=".club.ClubInsertActivity"
-            android:label="@string/title_activity_club_insert"
-            android:theme="@style/AppTheme" />
+        <activity android:name=".club.ClubInsertActivity"/>
         <activity android:name=".act.ActInsert_1Activity" />
         <activity android:name=".act.ActInsert_2Activity" />
-        <activity android:name=".act.ActInsert_3Activity"></activity>
+        <activity android:name=".act.ActInsert_3Activity" />
     </application>
 
 </manifest>

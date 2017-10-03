@@ -9,7 +9,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout_act_insert2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -40,21 +40,21 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
 
 
-                android:layout_marginLeft="60dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginLeft="32dp"
+
+                android:layout_marginTop="32dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/act3" />
 
             <TextView
-                android:id="@+id/section_label"
+                android:id="@+id/tvActPoi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView"
@@ -81,13 +81,13 @@
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_1"
                 app:layout_constraintLeft_toRightOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="70dp" />
 
             <CheckBox
                 android:id="@+id/cbLearn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
                 android:layout_marginTop="8dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_2"
@@ -98,7 +98,6 @@
                 android:id="@+id/cbFood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
                 android:layout_marginTop="8dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_3"
@@ -109,7 +108,6 @@
                 android:id="@+id/cbArts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
                 android:layout_marginTop="8dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_4"
@@ -120,7 +118,6 @@
                 android:id="@+id/cbGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
                 android:layout_marginTop="8dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_6"
@@ -132,17 +129,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:layout_marginTop="-7dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_5"
                 app:layout_constraintLeft_toRightOf="@+id/cbSports"
-                app:layout_constraintTop_toTopOf="@+id/cbSports" />
+                app:layout_constraintTop_toTopOf="@+id/cbSports"
+                android:layout_marginStart="23dp" />
 
             <CheckBox
                 android:id="@+id/cbPets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
                 android:layout_marginTop="8dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_8"
@@ -154,17 +150,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="0dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_9"
                 app:layout_constraintLeft_toRightOf="@+id/cbMovie"
-                app:layout_constraintTop_toTopOf="@+id/cbMovie" />
+                app:layout_constraintTop_toTopOf="@+id/cbMovie"
+                android:layout_marginStart="24dp" />
 
             <CheckBox
                 android:id="@+id/cbOutdoors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
                 android:layout_marginTop="8dp"
                 android:checkMark="@android:drawable/checkbox_off_background"
                 android:text="@string/ctPoi_7"
@@ -180,7 +175,7 @@
         android:layout_width="0dp"
         android:layout_height="380dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -194,61 +189,28 @@
                 android:id="@+id/btActInsert_next2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:layout_marginTop="200dp"
-                android:text="Button"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvActInsertTime" />
+                android:layout_marginTop="8dp"
+                android:text="@string/btnNext_actInsert"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActEnd_show"
+                app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActEnd_show"
+                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActEnd_show" />
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintHorizontal_bias="0.501"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/act4" />
-
-            <TextView
-                android:id="@+id/tvActInsertTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageView3"
-                android:layout_centerHorizontal="true"
-
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/tvActInsertTab2_time"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/tvDatePicker_ActRegisterEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-
-                android:text="@string/tvAct_RegisterEndDatePicker"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActEnd"
-                android:layout_marginRight="0dp"
-                app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActEnd"
-                app:layout_constraintHorizontal_bias="0.0"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActEnd_show" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/act4"
+                app:layout_constraintHorizontal_bias="0.498" />
 
             <TextView
                 android:id="@+id/tvDatePicker_ActStart"
@@ -256,81 +218,59 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="24dp"
+
+                android:layout_marginTop="32dp"
+                android:padding="3dp"
                 android:text="@string/tvAct_StartDatePicker"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvActInsertTime"
-                android:layout_marginStart="50dp" />
-
-            <TextView
-                android:id="@+id/tvDatePicker_ActRegisterStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/tvAct_RegisterStartDatePicker"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActStart"
-                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActStart_show"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActStart"
-                app:layout_constraintHorizontal_bias="0.0" />
-
-            <TextView
-                android:id="@+id/tvDatePicker_ActRegisterEnd_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActRegisterEnd"
-                app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActRegisterEnd"
-                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActRegisterEnd" />
+                app:layout_constraintLeft_toLeftOf="@+id/imageView3"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.501" />
 
             <TextView
                 android:id="@+id/tvDatePicker_ActStart_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:textSize="24sp"
+                tools:text="textview"
+                android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActStart"
+                android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActStart"
+                android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActStart" />
 
             <TextView
                 android:id="@+id/tvDatePicker_ActEnd_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:textSize="24sp"
-                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActEnd"
+                tools:text="textview"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActEnd"
+                android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActEnd"
-                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActEnd" />
-
-            <TextView
-                android:id="@+id/tvDatePicker_ActRegisterStart_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActRegisterStart"
-                app:layout_constraintRight_toRightOf="@+id/tvDatePicker_ActRegisterStart"
-                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActRegisterStart" />
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActEnd" />
 
             <TextView
                 android:id="@+id/tvDatePicker_ActEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_marginEnd="50dp"
+                android:layout_marginLeft="-1dp"
+                android:padding="3dp"
                 android:text="@string/tvAct_EndDatePicker"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="@+id/tvDatePicker_ActStart"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="50dp"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="@+id/tvDatePicker_ActStart"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvDatePicker_ActStart_show" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

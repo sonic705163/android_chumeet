@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">ChuMeet啾咪</string>
     <!--APP歡迎頁面、註冊按鈕 -->
-    <string name="btSignUp">SIGN UP</string>
     <string name="txv_1">We are what we do</string>
     <string name="btLogIn_0">會員登入</string>
     <!--APP會員登入頁面、外部帳號登入-->
@@ -117,4 +116,10 @@
     <string name="ctPoi_9">其他</string>
     <string name="tvActInsert_content">活動詳細內容</string>
     <string name="tvActInsert_agreed">啾咪是一個友善熱情的網站，請同意我們的使用條款</string>
+    <string name="tvActInsert_agreed2">我同意</string>
+    <string name="btnPositioning">定位</string>
+    <string name="btSignUp">註冊會員</string>
+    <string name="btSignUp2">註冊</string>
+    <string name="btnNext_actInsert">下一步</string>
+    <string name="btnFinal_createAct">建立你的活動</string>
 </resources>

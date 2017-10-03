@@ -109,6 +109,9 @@
     <string name="tvActIsertTab2_poi">category</string>
     <string name="ivTakepicture">TakePicture</string>
     <string name="icChuMeet">ChuMeet</string>
+    <string name="btnPositioning">positioning</string>
+    <string name="btnNext_actInsert">Next</string>
+    <string name="btnFinal_createAct">create</string>
 
 
 </resources>

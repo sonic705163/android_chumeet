@@ -46,7 +46,7 @@ import static iii.com.chumeet.Common.showToast;
 public class SignUpActivity extends AppCompatActivity {
     private final static String TAG = "SignUpActivity";
     private final static int REQ_TAKE_PICTURE = 0;
-    private String id;
+    private String memID;
 //    private MemVO memVO;
     private Bitmap picture;
     private File file;
@@ -199,7 +199,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     .putBoolean("login", true)
                                     .putString("email", email)
                                     .putString("password", password)
-                                    .putString("id", id)
+                                    .putString("id", memID)
                                     .apply();
                             setResult(RESULT_OK);
 
@@ -226,8 +226,8 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 //神奇小按鈕
-        TextView tvSet = (TextView) findViewById(R.id.tvSignUpSet);
-        tvSet.setOnClickListener(new View.OnClickListener() {
+        TextView tmb = (TextView) findViewById(R.id.tvSignUpSet);
+        tmb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etName.setText("小林");
@@ -304,12 +304,12 @@ public class SignUpActivity extends AppCompatActivity {
                 String jsonIn = new SignUpTask(url, signUp, name, email, password, image).execute().get();
 
                 Gson gson = new Gson();
-                id = gson.fromJson(jsonIn, String.class);
+                memID = gson.fromJson(jsonIn, String.class);
 
             } catch (Exception e){
                 Log.e(TAG, e.toString());
             }
-            answer = id != null;
+            answer = memID != null;
         }else{
             showToast(this, R.string.msg_NoNetwork);
         }

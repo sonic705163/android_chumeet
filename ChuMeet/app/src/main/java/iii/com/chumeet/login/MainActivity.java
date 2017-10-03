@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "LogIn");
+                jsonObject.addProperty("action", "logIn");
                 jsonObject.addProperty("email", email);
                 jsonObject.addProperty("password", password);
                 String jsonOut = jsonObject.toString();

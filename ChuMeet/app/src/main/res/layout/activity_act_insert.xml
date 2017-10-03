@@ -9,7 +9,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout_act_insert2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,10 +29,6 @@
         android:layout_width="0dp"
         android:layout_height="600dp"
 
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-
-        android:layout_marginTop="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -69,8 +65,8 @@
 
             <ImageView
                 android:id="@+id/ivActInsertName"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="32dp"
@@ -86,10 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvActInsertName"
                 android:layout_centerHorizontal="true"
-                android:hint="@string/edActInsert_name"
+                android:layout_marginTop="1dp"
                 app:layout_constraintLeft_toLeftOf="@+id/tvActInsertName"
-                app:layout_constraintTop_toBottomOf="@+id/tvActInsertName"
-                android:layout_marginTop="1dp" />
+                app:layout_constraintTop_toBottomOf="@+id/tvActInsertName" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -109,46 +104,44 @@
 
             <ImageView
                 android:id="@+id/tvActInsertLocation"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tvActInsertName"
                 android:layout_below="@+id/etActInsertName"
                 android:layout_marginTop="60dp"
                 app:layout_constraintLeft_toLeftOf="@+id/ivActInsertName"
                 app:layout_constraintTop_toBottomOf="@+id/ivActInsertName"
-                app:srcCompat="@drawable/act2"
-                android:layout_marginLeft="0dp" />
+                app:srcCompat="@drawable/act2" />
 
             <EditText
                 android:id="@+id/etActInsertLocation"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:hint="@string/edActInsert_name"
+                android:layout_marginTop="1dp"
                 app:layout_constraintLeft_toLeftOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                android:layout_marginTop="1dp" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Button"
                 android:onClick="onLocationNameClick"
+                android:text="@string/btnPositioning"
+                app:layout_constraintLeft_toLeftOf="@+id/fmMap_actInsert"
                 app:layout_constraintRight_toRightOf="@+id/fmMap_actInsert"
-                app:layout_constraintTop_toBottomOf="@+id/etActInsertLocation"
-                app:layout_constraintLeft_toLeftOf="@+id/fmMap_actInsert" />
+                app:layout_constraintTop_toBottomOf="@+id/etActInsertLocation" />
 
             <Button
                 android:id="@+id/btActInsert_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/fmMap_actInsert"
+                android:text="@string/btnNext_actInsert"
                 app:layout_constraintLeft_toLeftOf="@+id/fmMap_actInsert"
-                app:layout_constraintRight_toRightOf="@+id/fmMap_actInsert" />
+                app:layout_constraintRight_toRightOf="@+id/fmMap_actInsert"
+                app:layout_constraintTop_toBottomOf="@+id/fmMap_actInsert" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class ActVO implements Serializable {
-    private String memName;
+
     private Integer actID;
     private Integer memID;
     private Timestamp actCreateDate;
@@ -29,12 +29,7 @@ public class ActVO implements Serializable {
     private String actLocName;
     private String actAdr;
 
-    public String getMemName() {
-        return memName;
-    }
-    public void setMemName(String memName) {
-        this.memName = memName;
-    }
+
     public Integer getActID() {
         return actID;
     }

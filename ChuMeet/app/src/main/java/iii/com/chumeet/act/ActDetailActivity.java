@@ -20,12 +20,22 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.HomeActivity;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
+import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.mem.MemVO;
+
+import static iii.com.chumeet.Common.networkConnected;
+import static iii.com.chumeet.Common.showToast;
+import static java.lang.Integer.valueOf;
 
 public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "ActDetailActivity";
@@ -39,13 +49,13 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     private ActVO actVO;
     private MemVO memVO;
     private GoogleMap map;
+    private int actID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_detail);
-
 
         actImg = (ImageView) findViewById(R.id.ivActDetImg);
         actName = (TextView) findViewById(R.id.tvActDetName);
@@ -75,13 +85,51 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onStart() {
         super.onStart();
-        showResults();
+        Bundle bundle = this.getIntent().getExtras();
+        String actIdStr = bundle.getString("actIdStr");
+
+        if(actIdStr != null){
+
+            actID = valueOf(actIdStr);
+            showInsert();
+        }else {
+
+            actVO = (ActVO) getIntent().getSerializableExtra("actVO");
+            showResults();
+        }
+    }
+
+    private void showInsert() {
+
+        if(networkConnected(this)){
+            String url = Common.URL + "ActServletAndroid";
+
+            try {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "findById");
+                jsonObject.addProperty("id", actID);
+
+                String jsonOut = jsonObject.toString();
+                String jsonIn = new MyTask(url, jsonOut).execute().get();
+
+                Gson gson = new Gson();
+                Type type = new TypeToken<ActVO>(){}.getType();
+                actVO = gson.fromJson(jsonIn, type);
+            } catch (Exception e){
+                Log.e(TAG, e.toString());
+            }
+            showResults();
+        }else{
+            showToast(this, R.string.msg_NoNetwork);
+        }
+
+
     }
 
     private void showResults() {
         String url = Common.URL + "ActServletAndroid";
         String startDate, endDate;
-        actVO = (ActVO) getIntent().getSerializableExtra("actVO");
+
 
         int imageSize = getResources().getDisplayMetrics().widthPixels / 4;
 
@@ -94,7 +142,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         actName.setText(actVO.getActName());
         actCont.setText(actVO.getActContent());
         actLoc.setText(actVO.getActLocName());
-        acthost.setText(actVO.getMemName());
+//        acthost.setText(actVO.getMemName());
         startDate = actVO.getActStartDate();
         endDate = actVO.getActEndDate();
 
@@ -117,7 +165,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         map.setMyLocationEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
         if(actVO == null){
-            Common.showToast(this, R.string.msg_NoActsFound);
+            showToast(this, R.string.msg_NoActsFound);
         }else{
             showMap(actVO);
         }

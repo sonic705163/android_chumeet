@@ -32,7 +32,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private TextView tvMessage;
-    private String id;
+    private String memID;
 
 
     @Override
@@ -69,7 +69,7 @@ public class LogInActivity extends AppCompatActivity {
                             .putBoolean("login", true)
                             .putString("email", email)
                             .putString("password", password)
-                            .putString("id", id)
+                            .putString("id", memID)
                             .apply();
 
                     setResult(RESULT_OK);       //防使用者亂寫
@@ -85,8 +85,8 @@ public class LogInActivity extends AppCompatActivity {
         });
 
         //神奇小按鈕
-        TextView tvSet = (TextView) findViewById(R.id.tvLogin2);
-        tvSet.setOnClickListener(new View.OnClickListener() {
+        TextView tmb = (TextView) findViewById(R.id.tvLogin2);
+        tmb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -114,19 +114,19 @@ public class LogInActivity extends AppCompatActivity {
 
             try {
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "LogIn");
+                jsonObject.addProperty("action", "logIn");
                 jsonObject.addProperty("email", email);
                 jsonObject.addProperty("password", password);
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 
                 Gson gson = new Gson();
-                id = gson.fromJson(jsonIn, String.class);
+                memID = gson.fromJson(jsonIn, String.class);
 
             } catch (Exception e){
                 Log.e(TAG, e.toString());
             }
-            answer = id != null;
+            answer = memID != null;
         }else{
             showToast(this, R.string.msg_NoNetwork);
         }
