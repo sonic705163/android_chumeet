@@ -1,4 +1,4 @@
-package iii.com.chumeet.fragment;
+package iii.com.chumeet.home;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

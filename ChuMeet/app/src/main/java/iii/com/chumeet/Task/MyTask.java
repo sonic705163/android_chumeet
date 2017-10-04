@@ -25,12 +25,12 @@ public class MyTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... params){
             String inStr = null;
-            try{
-                inStr = getRemoteData();
-            }catch (IOException e){
-                Log.e(TAG, e.toString());
-            }
-            return inStr;
+        try{
+            inStr = getRemoteData();
+        }catch (IOException e){
+            Log.e(TAG, e.toString());
+        }
+        return inStr;
     }
 
 //連線取資料

@@ -5,10 +5,7 @@
     <string name="txv_1">We are what we do</string>
     <string name="btLogIn_0">會員登入</string>
     <!--APP會員登入頁面、外部帳號登入-->
-    <string name="btFB">Continue with Facebook</string>
-    <string name="btGoogle">Continue with Google</string>
     <!--APP會員登入頁面、內部帳號登入-->
-    <string name="btEmail">Continue with Email</string>
     <string name="editEmail">Email</string>
     <string name="editPassword">Password</string>
     <string name="btLogIn_1">Log In</string>
@@ -20,52 +17,9 @@
     <string name="navGoing">Going</string>
     <string name="navProfile">Profile</string>
     <!--內容：navFind上-->
-    <string name="txv_2">Your groups and suggestions</string>
-    <string name="txv_3">Explore by category</string>
-    <string name="btYGS_0">Your groups only</string>
-    <string name="btYGS_1">Saved</string>
     <!--內容：navFind下-->
-    <string name="btEC_0">Art</string>
-    <string name="btEC_1">Beauty</string>
-    <string name="btEC_2">Beliefs</string>
-    <string name="btEC_3">Board Games</string>
-    <string name="btEC_4">Career</string>
-    <string name="btEC_5">Crafts</string>
-    <string name="btEC_6">Culture</string>
-    <string name="btEC_7">Food and Drink</string>
-    <string name="btEC_8">Government Arts</string>
-    <string name="btEC_9">Health</string>
-    <string name="btEC_10">moive</string>
-    <string name="btEC_11">Music</string>
-    <string name="btEC_12">Game</string>
-    <string name="btEC_13">Online</string>
-    <string name="btEC_14">Outdoors</string>
-    <string name="btEC_15">Pets</string>
-    <string name="btEC_16">Photography</string>
-    <string name="btEC_17">Professional Activities</string>
-    <string name="btEC_18">Reading Group</string>
-    <string name="btEC_19">Shopping</string>
-    <string name="btEC_20">Singing</string>
-    <string name="btEC_21">Sports</string>
-    <string name="btEC_22">Kids</string>
-    <string name="btEC_23">Learning</string>
-    <string name="btEC_24">Adventure</string>
-    <string name="btEC_25">Social</string>
-    <string name="btEC_26">Charity</string>
-    <string name="btEC_27">Conference</string>
-    <string name="btEC_28">Theater</string>
-    <string name="btEC_29">ACG</string>
-    <string name="btEC_30">Concert</string>
-    <string name="btEC_31">Exhibition</string>
-    <string name="btEC_32">Others</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="txv_4">Explore</string>
-    <string name="btSA">See All</string>
-    <string name="txvActName">ActName</string>
-    <string name="txvActIntro">ActIntro</string>
-    <string name="txvActDate">ActDate</string>
 
     <string name="navMessage">Message</string>
 
@@ -74,11 +28,6 @@
     <string name="msg_CheckEmailOK">Email OK!!!</string>
     <string name="msg_CheckEmailRepeat">Email repeat</string>
 
-    <string name="toolbar1">Profile</string>
-    <string name="toolbar2">You\'re going</string>
-    <string name="toolbar3">Messages</string>
-    <string name="toolbar4">Find</string>
-    <string name="toolbar5">Browse</string>
     <string name="stLogout">Log out</string>
 
 
@@ -122,4 +71,5 @@
     <string name="btSignUp2">註冊</string>
     <string name="btnNext_actInsert">下一步</string>
     <string name="btnFinal_createAct">建立你的活動</string>
+    <string name="btnJoinAct">加入本活動</string>
 </resources>

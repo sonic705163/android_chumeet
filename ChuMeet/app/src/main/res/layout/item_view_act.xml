@@ -1,5 +1,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="160dp"
     android:layout_height="@dimen/cardHeight"
@@ -35,12 +36,12 @@
                 android:id="@+id/tvActName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/background_light"
+                android:background="@color/cardview_light_background"
                 android:maxLength="7"
                 android:paddingLeft="6dp"
-                android:text="Name"
                 android:textSize="@dimen/textSize"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Name" />
 
             <TextView
                 android:id="@+id/tvActDate"
@@ -48,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/background_light"
                 android:paddingLeft="6dp"
-                android:text="Date"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize"
+                tools:text="Date" />
 
         </LinearLayout>
     </RelativeLayout>

@@ -1,4 +1,4 @@
-package iii.com.chumeet.fragment;
+package iii.com.chumeet.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -143,7 +143,6 @@ public class BrowseFragment extends Fragment {
 //抓圖片
             new GetImageTask(url, id, imageSize, myViewHolder.ivClubImg).execute();
                 myViewHolder.tvClubName.setText(clubVO.getClubName());
-                myViewHolder.tvClubDate.setText(clubVO.getClubStartDate());
                 myViewHolder.ivClubImg.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -162,13 +161,13 @@ public class BrowseFragment extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView ivClubImg;
-            TextView tvClubName, tvClubDate;
+            TextView tvClubName;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 ivClubImg = (ImageView) itemView.findViewById(R.id.ivClubImg);
                 tvClubName = (TextView) itemView.findViewById(R.id.tvClubName);
-                tvClubDate = (TextView) itemView.findViewById(R.id.tvClubDate);
+
             }
         }
     }

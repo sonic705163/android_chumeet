@@ -1,4 +1,4 @@
-package iii.com.chumeet;
+package iii.com.chumeet.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,11 +13,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import iii.com.chumeet.fragment.BrowseFragment;
-import iii.com.chumeet.fragment.FindFragment;
-import iii.com.chumeet.fragment.GoingFragment;
-import iii.com.chumeet.fragment.MessageFragment;
-import iii.com.chumeet.fragment.ProfileFragment;
+import iii.com.chumeet.R;
 import iii.com.chumeet.login.MainActivity;
 
 public class HomeActivity extends AppCompatActivity{

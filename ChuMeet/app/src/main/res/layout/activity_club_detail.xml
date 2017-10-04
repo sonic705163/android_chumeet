@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme.AppBarOverlay" >
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_ClubDetail"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -70,13 +69,11 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvClubDetHost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
 
                 <Button
-                    android:id="@+id/btClubJoin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Button" />

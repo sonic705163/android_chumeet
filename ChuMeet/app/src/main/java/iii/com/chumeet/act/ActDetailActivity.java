@@ -1,10 +1,12 @@
 package iii.com.chumeet.act;
 
 import android.Manifest;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,22 +22,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 
 import iii.com.chumeet.Common;
-import iii.com.chumeet.HomeActivity;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
-import iii.com.chumeet.Task.MyTask;
+
+import iii.com.chumeet.home.HomeActivity;
 import iii.com.chumeet.mem.MemVO;
 
-import static iii.com.chumeet.Common.networkConnected;
+
 import static iii.com.chumeet.Common.showToast;
-import static java.lang.Integer.valueOf;
+
 
 public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "ActDetailActivity";
@@ -49,7 +47,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     private ActVO actVO;
     private MemVO memVO;
     private GoogleMap map;
-    private int actID;
+
 
 
     @Override
@@ -75,6 +73,9 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+
+
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fmMap);
 
@@ -85,46 +86,23 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onStart() {
         super.onStart();
+
         Bundle bundle = this.getIntent().getExtras();
-        String actIdStr = bundle.getString("actIdStr");
+        actVO =  (ActVO) bundle.getSerializable("actVO");
+        bundle.putInt("ActID", actVO.getActID());
 
-        if(actIdStr != null){
+        MemFragment fragment = new MemFragment();
 
-            actID = valueOf(actIdStr);
-            showInsert();
-        }else {
+        fragment.setArguments(bundle);
 
-            actVO = (ActVO) getIntent().getSerializableExtra("actVO");
-            showResults();
-        }
-    }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fmActDetail, fragment).commit();
 
-    private void showInsert() {
-
-        if(networkConnected(this)){
-            String url = Common.URL + "ActServletAndroid";
-
-            try {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "findById");
-                jsonObject.addProperty("id", actID);
-
-                String jsonOut = jsonObject.toString();
-                String jsonIn = new MyTask(url, jsonOut).execute().get();
-
-                Gson gson = new Gson();
-                Type type = new TypeToken<ActVO>(){}.getType();
-                actVO = gson.fromJson(jsonIn, type);
-            } catch (Exception e){
-                Log.e(TAG, e.toString());
-            }
-            showResults();
-        }else{
-            showToast(this, R.string.msg_NoNetwork);
-        }
-
+        showResults();
 
     }
+
+
 
     private void showResults() {
         String url = Common.URL + "ActServletAndroid";
@@ -151,14 +129,16 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d(TAG, "showResults");
     }
 
+
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
         map.setTrafficEnabled(true);
+
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
@@ -199,7 +179,7 @@ public class ActDetailActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if(keyCode == KeyEvent.KEYCODE_BACK){
 
-            Intent intent = new Intent(ActDetailActivity.this, HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
 

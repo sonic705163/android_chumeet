@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,14 +31,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
+import iii.com.chumeet.home.HomeActivity;
 import iii.com.chumeet.R;
 
-public class ActInsert_1Activity extends AppCompatActivity implements OnMapReadyCallback {
+public class ActInsert_1Activity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
     private final static String TAG = "ActInsert_1Activity";
-    private EditText etName, etLocationName;
-    private GoogleMap map;              //儲存地圖資訊
-    private UiSettings uiSettings;      //儲存地圖UI設定
+    static final int MIN_TIME = 10000;                           //位置更新條件:5000 毫秒
+    static final float MIN_DIST = 0;                            //位置更新條件:5 公尺
+    private LocationManager mgr;                                //定位管理員
+    private LatLng currPoint;                                   //儲存目前的位置
+    private boolean isGPSEnabled;                               //GPS定位是否可用
+    private boolean isNetworkEnabled;                           //網路定位是否可用
+    private GoogleMap map;                                      //儲存地圖資訊
+    private UiSettings uiSettings;                              //儲存地圖UI設定
     private boolean isMapReady = false;
+
+    private EditText etName, etLocationName;
     private Address address;
     private Double latitude, longitude;
 
@@ -45,11 +57,53 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
 
         findViews();
 
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fmMap_actInsert);
+        mgr = (LocationManager) getSystemService(LOCATION_SERVICE);      //取得系統服務LocationManager物件
+        checkPermission();                                               //檢查若尚未授權，則向使用者要求定位權限
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fmMap_actInsert);
         mapFragment.getMapAsync(this);
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        enableLocationUpdates(true);        //開啟定位更新功能
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        enableLocationUpdates(false);    //關閉定位更新功能
+    }
+
+    //開啟或關閉定位更新功能
+    private void enableLocationUpdates(boolean isTurnOn) {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){  // 使用者已經允許定位權限
+            if (isTurnOn) {
+                //檢查 GPS 與網路定位是否可用
+                isGPSEnabled = mgr.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                isNetworkEnabled = mgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                if (!isGPSEnabled && !isNetworkEnabled) {
+                    // 無提供者, 顯示提示訊息
+                    Toast.makeText(this, "請確認已開啟定位功能!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(this, "取得定位資訊中...", Toast.LENGTH_LONG).show();
+                    if (isGPSEnabled)
+                        mgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, this);//向 GPS 定位提供者註冊位置事件監聽器
+                    if (isNetworkEnabled)
+                        mgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST,  this);//向網路定位提供者註冊位置事件監聽器
+                }
+            }
+            else {
+                mgr.removeUpdates(this);    //停止監聽位置事件
+            }
+        }
     }
 
     private void findViews() {
@@ -66,6 +120,7 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
                 if(locationName.length() > 0 && actName.length() > 0 ){
 
                     locationNameToLatLng(locationName);
+
                     latitude = address.getLatitude();
                     longitude = address.getLongitude();
 
@@ -75,11 +130,6 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
                     bundle.putString("locationName", locationName);
                     bundle.putDouble("Lat", latitude);
                     bundle.putDouble("Lng", longitude);
-
-//                    Log.d("Lat", actName);
-//                    Log.d("Lat", locationName);
-//                    Log.d("Lat", latitude.toString());
-//                    Log.d("Lat", longitude.toString());
 
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -164,7 +214,7 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
         //將鏡頭焦點設定在使用者輸入的地點上
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(position).zoom(15).build();
-        map.animateCamera(CameraUpdateFactory
+        map.moveCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
 
 
@@ -188,5 +238,61 @@ public class ActInsert_1Activity extends AppCompatActivity implements OnMapReady
 
     }
 
+    //檢查若尚未授權, 則向使用者要求定位權限
+    private void checkPermission() {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+            }, 200);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if(location != null) { // 如果可以取得座標
+
+            currPoint = new LatLng( location.getLatitude(), location.getLongitude()); //依照目前經緯度建立LatLng 物件
+
+            if (map != null) { // 如果 Google Map 已經啟動完畢
+                map.moveCamera(CameraUpdateFactory.newLatLng(currPoint)); // 將地圖中心點移到目前位置
+                map.addMarker(new MarkerOptions().position(currPoint).title("目前位置")); //標記目前位置
+            }
+        }
+        else { // 無法取得座標
+            Toast.makeText(getBaseContext(), "暫時無法取得定位資訊...",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    //監聽返回鍵點擊事件
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+        return true;
+    }
 }

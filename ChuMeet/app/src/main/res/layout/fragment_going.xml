@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="iii.com.chumeet.fragment.GoingFragment">
+                tools:context="iii.com.chumeet.home.GoingFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <android.support.design.widget.AppBarLayout
@@ -22,13 +22,12 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/goingRefresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/appBarLayout_going">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvGoingActs"
+                android:id="@+id/rvActsGoing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="8dp"

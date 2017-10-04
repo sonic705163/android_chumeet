@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_act_insert3"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -42,12 +41,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintLeft_toLeftOf="@+id/etActInsert_content"
         app:layout_constraintRight_toRightOf="@+id/etActInsert_content"
         app:layout_constraintTop_toBottomOf="@+id/etActInsert_content"
         app:srcCompat="@drawable/act6"
-        app:layout_constraintHorizontal_bias="0.498" />
+        app:layout_constraintHorizontal_bias="0.496" />
 
     <TextView
         android:id="@+id/textView4"

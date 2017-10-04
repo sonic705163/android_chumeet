@@ -2,7 +2,11 @@ package iii.com.chumeet.act;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,18 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
-import iii.com.chumeet.Task.MyTask;
-
+import iii.com.chumeet.Task.InsertTask;
 
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.valueOf;
 
 public class ActInsert_3Activity extends AppCompatActivity {
     private static final String TAG = "ActInsert_3Activity";
@@ -33,6 +37,7 @@ public class ActInsert_3Activity extends AppCompatActivity {
     private EditText etContent;
     private Button btNext;
     private String actIdStr;
+    private byte[] image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,7 @@ public class ActInsert_3Activity extends AppCompatActivity {
 
         btNext = (Button) findViewById(R.id.btActInsert_final);
         btNext.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
 
@@ -101,11 +107,12 @@ public class ActInsert_3Activity extends AppCompatActivity {
                 actVO.setActLocName(locationName);
                 actVO.setActLat(lat);
                 actVO.setActLong(lng);
-                actVO.setActStartDate(java.sql.Timestamp.valueOf(actStart + ":" + 00));
-                actVO.setActEndDate(java.sql.Timestamp.valueOf(actEnd + ":" + 00));
-                actVO.setActSignStartDate(java.sql.Timestamp.valueOf(actStart + ":" + 00));
-                actVO.setActSignEndDate(java.sql.Timestamp.valueOf(actStart + ":" + 00));
-//以下預設
+                actVO.setActStartDate(Timestamp.valueOf(actStart + ":" + 00));
+                actVO.setActEndDate(Timestamp.valueOf(actEnd + ":" + 00));
+                actVO.setActSignStartDate(Timestamp.valueOf(actStart + ":" + 00));
+                actVO.setActSignEndDate(Timestamp.valueOf(actStart + ":" + 00));
+
+//主辦人和創建時間
                 SharedPreferences pref = getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
                 String memID = pref.getString("id", "");
                 int id = parseInt(memID);
@@ -117,10 +124,11 @@ public class ActInsert_3Activity extends AppCompatActivity {
                 int mHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int mMinute = calendar.get(Calendar.MINUTE);
                 int mSecond = calendar.get(Calendar.SECOND);
-                String today = String.valueOf(mYear + "-" + mMonth + "-" + mDay + " " + mHour + ":" + mMinute + ":" + mSecond );
+                String today = String.valueOf(mYear + "-" + (mMonth + 1) + "-" + mDay + " " + mHour + ":" + mMinute + ":" + mSecond );
 
                 actVO.setMemID(id);
-                actVO.setActCreateDate(java.sql.Timestamp.valueOf(today));
+                actVO.setActCreateDate(Timestamp.valueOf(today));
+//以下預設
                 actVO.setActStatus(1);
                 actVO.setActPriID(1);
                 actVO.setActTimeTypeID(0);
@@ -132,13 +140,17 @@ public class ActInsert_3Activity extends AppCompatActivity {
                 actVO.setActPost(999);
                 actVO.setActAdr(locationName);
 
+                Bitmap srcPicture = BitmapFactory.decodeResource(getResources(), R.drawable.p);
+                Bitmap picture = Common.downSize(srcPicture, 512);
+                image = Common.bitmapToPNG(picture);
+
                 if(isInsertValid(actVO)){
 
-
+                    actVO.setActID(valueOf(actIdStr));
 
                     Intent intent = new Intent(ActInsert_3Activity.this, ActDetailActivity.class);
                     Bundle bundle2 = new Bundle();
-                    bundle2.putString("actIdStr", actIdStr);
+                    bundle2.putSerializable("actVO", actVO);
                     intent.putExtras(bundle2);
                     startActivity(intent);
 
@@ -159,19 +171,15 @@ public class ActInsert_3Activity extends AppCompatActivity {
 
             try {
                 Gson gson = new Gson();
-                String actVOStr = gson.toJson(actVO);
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "insert");
-                jsonObject.addProperty("actVO", actVOStr);
-                String jsonOut = jsonObject.toString();
-                String jsonIn = new MyTask(url, jsonOut).execute().get();
+
+                String jsonIn = new InsertTask(url, "insert", actVO, image).execute().get();
 
                 actIdStr = gson.fromJson(jsonIn, String.class);
 
             } catch (Exception e){
                 Log.e(TAG, e.toString());
             }
-            answer = actIdStr != null;
+            answer = !actIdStr.equals("");
         }else{
             showToast(ActInsert_3Activity.this, R.string.msg_NoNetwork);
         }

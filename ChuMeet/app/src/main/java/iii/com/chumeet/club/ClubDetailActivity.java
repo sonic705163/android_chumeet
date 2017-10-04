@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import iii.com.chumeet.Common;
-import iii.com.chumeet.HomeActivity;
+import iii.com.chumeet.home.HomeActivity;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 

@@ -36,7 +36,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_act_insert"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
@@ -128,7 +127,6 @@
                      />
 
                     <com.google.android.gms.maps.MapView
-                        android:id="@+id/mapView"
                         android:layout_width="300dp"
                         android:layout_height="140dp"
                         android:layout_alignParentBottom="true"
@@ -153,7 +151,6 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/section_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/imageView"
@@ -193,7 +190,6 @@
                         app:srcCompat="@drawable/act4" />
 
                     <TextView
-                        android:id="@+id/tvActInsertTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/imageView3"
@@ -207,7 +203,6 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
                     <TextView
-                        android:id="@+id/tvDatePicker_ActRegisterEnd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tvAct_RegisterEndDatePicker"
@@ -229,7 +224,6 @@
                         app:layout_constraintLeft_toLeftOf="@+id/imageView3" />
 
                     <TextView
-                        android:id="@+id/tvDatePicker_ActRegisterStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tvAct_RegisterStartDatePicker"
@@ -239,7 +233,6 @@
                         tools:layout_editor_absoluteY="230dp" />
 
                     <TextView
-                        android:id="@+id/tvDatePicker_ActRegisterEnd_show"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
@@ -263,7 +256,6 @@
                         tools:layout_editor_absoluteY="32dp" />
 
                     <TextView
-                        android:id="@+id/tvDatePicker_ActRegisterStart_show"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"

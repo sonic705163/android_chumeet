@@ -36,7 +36,7 @@ import java.net.URL;
 import java.util.List;
 
 import iii.com.chumeet.Common;
-import iii.com.chumeet.HomeActivity;
+import iii.com.chumeet.home.HomeActivity;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.MyTask;
 

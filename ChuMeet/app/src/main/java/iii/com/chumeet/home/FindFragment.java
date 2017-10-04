@@ -1,4 +1,4 @@
-package iii.com.chumeet.fragment;
+package iii.com.chumeet.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -44,7 +44,7 @@ public class FindFragment extends Fragment {
     private RecyclerView rvActs;
     private Toolbar toolbar ;
 
-//onCreateView是创建的时候调用
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class FindFragment extends Fragment {
         return view ;
     }
 
-//onViewCreated是在onCreateView后被触发的事件，前后关系
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -82,21 +82,22 @@ public class FindFragment extends Fragment {
 //        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
-        //一旦调用((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        //就会导致ActivityonCreateOptionsMenu()方法的调用, 而Activity会根据其中Fragment是否设置了setHasOptionsMenu(true)来调用Fragment的
-        //onCreateOptionsMenu()方法, 调用顺序是树形的, 按层级调用, 中间如果有false则跳过.
+                                                        //一旦调用((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+                                                        //就会导致ActivityonCreateOptionsMenu()方法的调用, 而Activity会根据其中Fragment是否设置了setHasOptionsMenu(true)来调用Fragment的
+                                                        //onCreateOptionsMenu()方法, 调用顺序是树形的, 按层级调用, 中间如果有false则跳过.
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        //设置导航图标、添加菜单点击事件要在setSupportActionBar方法之后
+                                                         //设置导航图标、添加菜单点击事件要在setSupportActionBar方法之后
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_insert_act:
-                        Intent intent = new Intent(getActivity(), ActInsert_1Activity.class);
+                        Intent intent = new Intent(getActivity(),  ActInsert_1Activity.class);
                         startActivity(intent);
+
                         break;
                 }
                 return true;
@@ -104,16 +105,13 @@ public class FindFragment extends Fragment {
         });
     }
 
-    //即先clear()一下, 這樣按鈕就只有Fragment中設置的自己的了, 不會有Activity中的按鈕
+                                                        //即先clear()一下, 這樣按鈕就只有Fragment中設置的自己的了, 不會有Activity中的按鈕
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.toolbar_menu_find, menu);
     }
 
-
-
-//onStart运行时间位于onViewCreated之后
     @Override
     public void onStart() {
         super.onStart();
@@ -143,8 +141,10 @@ public class FindFragment extends Fragment {
             }
         }else{
             showToast(getActivity(), R.string.msg_NoNetwork);
+
         }
     }
+
 
 
 

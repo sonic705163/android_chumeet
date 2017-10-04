@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme.AppBarOverlay" >
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_ActDetail"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -39,7 +38,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -47,9 +46,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_toEndOf="@+id/ivActDetImg"
+                        android:layout_alignStart="@+id/tvClubDetContent"
+                        android:layout_marginTop="21dp"
                         android:layout_weight="1"
                         android:text="TextView" />
 
@@ -57,53 +55,73 @@
                         android:id="@+id/ivActDetImg"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/p" />
 
+                    <TextView
+                        android:id="@+id/tvClubDetContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+
+                        android:layout_below="@+id/tvActDetName"
+                        android:layout_marginTop="26dp"
+                        android:layout_toEndOf="@+id/ivActDetImg"
+                        android:text="TextView"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tvClubDetContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/appBarLayout_ActDetail"
-
-                    android:text="TextView"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/btnJoinAct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/btnJoinAct" />
 
                 <TextView
                     android:id="@+id/tvActDetDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="30dp"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/tvActDetLoc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="30dp"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/tvActDetHost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="30dp"
                     android:text="TextView" />
 
                 <fragment
                     android:id="@+id/fmMap"
                     class="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp" />
+                    android:layout_height="160dp"
+                    android:layout_marginTop="30dp" />
+
+                <FrameLayout
+                    android:id="@+id/fmActDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+                </FrameLayout>
 
 
             </LinearLayout>

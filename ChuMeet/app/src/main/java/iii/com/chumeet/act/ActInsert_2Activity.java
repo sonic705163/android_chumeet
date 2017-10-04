@@ -23,6 +23,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
     private static final String TAG = "ActInsert_2Activity";
     private TextView tvActStart_Display, tvActEnd_Display;
     private TextView tvActEnd;
+    private Button btNext;
     private CheckBox cbSports, cbLearn, cbFood, cbArts, cbMovie, cbGame, cbOutdoors, cbPets, cbOthers;
     private String poi_1, poi_2, poi_3, poi_4, poi_5, poi_6, poi_7, poi_8, poi_9;
     private int asYear, asMonth, asDay, asHour, asMinute;
@@ -75,7 +76,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
             }
         });
 //下一步
-        Button btNext = (Button) findViewById(R.id.btActInsert_next2);
+        btNext = (Button) findViewById(R.id.btActInsert_next2);
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +222,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
 
                                 tvActEnd_visible();
                             }
-                        }, asHour, asMinute, false);
+                        }, asHour, asMinute, true);
 
                 timePicker.show();
                 datePicker.show();
@@ -250,6 +251,8 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                     aeYear = asYear;
                                     aeMonth = asMonth;
                                     aeDay = asDay;
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                                 if(aeYear < thisYear || aeYear > thisYear + 1){
@@ -257,7 +260,8 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                     aeYear = asYear;
                                     aeMonth = asMonth;
                                     aeDay = asDay;
-
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                                 aeMonth = month;
@@ -265,13 +269,16 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                     Toast.makeText(ActInsert_2Activity.this, "不得早於開始月份", Toast.LENGTH_SHORT).show();
                                     aeMonth = asMonth;
                                     aeDay = asDay;
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                                 if(aeMonth < thisMonth && aeYear <= thisYear ){
                                     Toast.makeText(ActInsert_2Activity.this, "無效月份設定", Toast.LENGTH_SHORT).show();
                                     aeMonth = asMonth;
                                     aeDay = asDay;
-
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
 
                                 }else if(aeMonth >= thisMonth - 6 && aeYear == thisYear + 1){
@@ -279,19 +286,23 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                     aeYear = asYear;
                                     aeMonth = asMonth;
                                     aeDay = asDay;
-
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                                 aeDay = day;
                                 if(aeDay < asDay){
                                     Toast.makeText(ActInsert_2Activity.this, "不得早於開始日期", Toast.LENGTH_SHORT).show();
                                     aeDay = asDay;
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                                 if(aeDay < today){
                                     Toast.makeText(ActInsert_2Activity.this, "無效日期設定", Toast.LENGTH_SHORT).show();
                                     aeDay = asDay;
-
+                                    aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                             }
@@ -305,6 +316,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                 if(aeHour < asHour){
                                     Toast.makeText(ActInsert_2Activity.this, "不得早於開始時間", Toast.LENGTH_SHORT).show();
                                     aeHour = asHour;
+                                    aeMinute = asMinute;
                                     return;
                                 }
                                 aeMinute = minute;
@@ -321,7 +333,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                                                     pad(aeMinute));
 
                             }
-                        }, aeHour, aeMinute, false);
+                        }, aeHour, aeMinute, true);
                 timePicker.show();
                 datePicker.show();
 
@@ -332,7 +344,8 @@ public class ActInsert_2Activity extends AppCompatActivity {
 
 //按鈕顯示
     private void tvActEnd_visible(){
-            tvActEnd.setVisibility(View.VISIBLE);
+        tvActEnd.setVisibility(View.VISIBLE);
+        btNext.setVisibility(View.VISIBLE);
     }
 
     private String pad(int number) {
