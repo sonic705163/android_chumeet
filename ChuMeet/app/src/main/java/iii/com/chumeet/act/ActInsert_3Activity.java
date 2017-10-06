@@ -156,7 +156,6 @@ public class ActInsert_3Activity extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(ActInsert_3Activity.this, "新增活動失敗", Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
             }

@@ -17,13 +17,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
-import iii.com.chumeet.mem.MemVO;
 
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
@@ -73,24 +73,31 @@ public class MemFragment extends Fragment{
 
         if(networkConnected(getActivity())){
             String url = Common.URL + "ActServletAndroid";
-            List<MemVO> memVOs = null;
+            List<Mem_ActMemVO> mem_actMemVOs = null;
+            List<Mem_ActMemVO> actMemVOs = new ArrayList<>();
             try{
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "getActMem");
+                jsonObject.addProperty("action", "getMem_ActMem");
                 jsonObject.addProperty("id", actID);
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<MemVO>>(){}.getType();
-                memVOs = gson.fromJson(jsonIn, listType);
+                Type listType = new TypeToken<List<Mem_ActMemVO>>(){}.getType();
+                mem_actMemVOs = gson.fromJson(jsonIn, listType);
             }catch (Exception e){
                 Log.e(TAG, e.toString());
             }
-            if(memVOs == null || memVOs.isEmpty()){
+            if(mem_actMemVOs == null || mem_actMemVOs.isEmpty()){
                 showToast(getActivity(), R.string.msg_NoActsFound);
             }else{
-                rvMems.setAdapter(new ActsRecyclerViewAdapter(getActivity(), memVOs));
+                for(Mem_ActMemVO actMem : mem_actMemVOs){
+                    if(actMem.getActMemStatus()==1 || actMem.getActMemStatus()==2){
+
+                        actMemVOs.add(actMem);
+                    }
+                }
+                rvMems.setAdapter(new ActsRecyclerViewAdapter(getActivity(), actMemVOs));
             }
         }else{
             showToast(getActivity(), R.string.msg_NoNetwork);
@@ -103,19 +110,19 @@ public class MemFragment extends Fragment{
 
     private class ActsRecyclerViewAdapter extends RecyclerView.Adapter<ActsRecyclerViewAdapter.MyViewHolder>{
         private LayoutInflater layoutInflater;
-        private List<MemVO> memVOs;
+        private List<Mem_ActMemVO> actMemVOs;
         private int imageSize;
 
-        ActsRecyclerViewAdapter(Context context, List<MemVO> memVOs){
+        ActsRecyclerViewAdapter(Context context, List<Mem_ActMemVO> actMemVOs){
             layoutInflater = LayoutInflater.from(context);
-            this.memVOs = memVOs;
+            this.actMemVOs = actMemVOs;
             /* 螢幕寬度除以4當作將圖的尺寸 */
             imageSize = getResources().getDisplayMetrics().widthPixels / 4;
         }
 
         @Override
         public int getItemCount(){
-            return memVOs.size();
+            return actMemVOs.size();
         }
 
         @Override
@@ -126,13 +133,13 @@ public class MemFragment extends Fragment{
 
         @Override
         public void onBindViewHolder(MyViewHolder myViewHolder, int postion){
-            final MemVO memVO = memVOs.get(postion);
+            final Mem_ActMemVO actMemVO = actMemVOs.get(postion);
             String url = Common.URL + "MemServletAndroid";
-            int id = memVO.getMemID();
+            int id = actMemVO.getMemID();
 
             new GetImageTask(url, id, imageSize, myViewHolder.ivActImg).execute();
 
-            myViewHolder.tvActName.setText(memVO.getMemName());
+            myViewHolder.tvActName.setText(actMemVO.getMemName());
 //            myViewHolder.tvActDate.setText(memVO.getMemStatus());
 //            myViewHolder.ivActImg.setOnClickListener(new View.OnClickListener(){
 //                @Override
