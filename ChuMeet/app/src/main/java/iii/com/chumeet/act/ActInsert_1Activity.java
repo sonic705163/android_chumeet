@@ -36,7 +36,7 @@ import iii.com.chumeet.R;
 
 public class ActInsert_1Activity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
     private final static String TAG = "ActInsert_1Activity";
-    static final int MIN_TIME = 10000;                           //位置更新條件:5000 毫秒
+    static final int MIN_TIME = 5000;                           //位置更新條件:5000 毫秒
     static final float MIN_DIST = 0;                            //位置更新條件:5 公尺
     private LocationManager mgr;                                //定位管理員
     private LatLng currPoint;                                   //儲存目前的位置
@@ -60,7 +60,8 @@ public class ActInsert_1Activity extends AppCompatActivity implements LocationLi
         mgr = (LocationManager) getSystemService(LOCATION_SERVICE);      //取得系統服務LocationManager物件
         checkPermission();                                               //檢查若尚未授權，則向使用者要求定位權限
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fmMap_actInsert);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fmMap_actInsert);
         mapFragment.getMapAsync(this);
 
     }

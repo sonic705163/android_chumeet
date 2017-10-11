@@ -48,6 +48,7 @@
         <activity android:name=".act.ActInsert_1Activity" />
         <activity android:name=".act.ActInsert_2Activity" />
         <activity android:name=".act.ActInsert_3Activity" />
+        <activity android:name=".act.ActPoiActivity" />
     </application>
 
 </manifest>

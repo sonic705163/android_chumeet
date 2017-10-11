@@ -30,6 +30,7 @@ public class ClubDetailActivity extends AppCompatActivity {
         clubImg = (ImageView) findViewById(R.id.ivClubDetImg);
         clubName = (TextView) findViewById(R.id.tvClubDetName);
         clubCont = (TextView) findViewById(R.id.tvClubDetContent);
+
         swipeRefreshLayout
                 = (SwipeRefreshLayout) findViewById(R.id.clubDetailRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

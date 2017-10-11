@@ -1,14 +1,18 @@
-package iii.com.chumeet.mem;
+package iii.com.chumeet.VO;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * Created by sonic on 2017/9/13.
+ * Created by sonic on 2017/10/6.
  */
 
-public class MemVO implements Serializable {
+public class Mem_ActMemVO {
+    private Integer actID;
     private Integer memID;
+    private Integer actMemStatus;
+    private Timestamp actJoinDate;
+    private Integer actStar;
+    private Timestamp actStarDate;
     private String memEmail;
     private String memPw;
     private Integer memberType;
@@ -29,27 +33,41 @@ public class MemVO implements Serializable {
     private Double memLat;
     private Integer memPriv;
     private Integer memStatus;
-
-    public MemVO(String memEmail, String memPw) {
-        this.memEmail= memEmail;
-        this.memPw = memPw;
+    public Integer getActID() {
+        return actID;
     }
-
-
-    public MemVO(Integer memID, String memEmail, String memPw) {
-        this.memID = memID;
-        this.memEmail= memEmail;
-        this.memPw = memPw;
+    public void setActID(Integer actID) {
+        this.actID = actID;
     }
-
-//    public MemVO(String memName, String memEmail, String password)
-
-
     public Integer getMemID() {
         return memID;
     }
     public void setMemID(Integer memID) {
         this.memID = memID;
+    }
+    public Integer getActMemStatus() {
+        return actMemStatus;
+    }
+    public void setActMemStatus(Integer actMemStatus) {
+        this.actMemStatus = actMemStatus;
+    }
+    public Timestamp getActJoinDate() {
+        return actJoinDate;
+    }
+    public void setActJoinDate(Timestamp actJoinDate) {
+        this.actJoinDate = actJoinDate;
+    }
+    public Integer getActStar() {
+        return actStar;
+    }
+    public void setActStar(Integer actStar) {
+        this.actStar = actStar;
+    }
+    public Timestamp getActStarDate() {
+        return actStarDate;
+    }
+    public void setActStarDate(Timestamp actStarDate) {
+        this.actStarDate = actStarDate;
     }
     public String getMemEmail() {
         return memEmail;
@@ -171,7 +189,4 @@ public class MemVO implements Serializable {
     public void setMemStatus(Integer memStatus) {
         this.memStatus = memStatus;
     }
-
-
-
 }

@@ -28,13 +28,12 @@ import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
+import iii.com.chumeet.VO.MemVO;
 import iii.com.chumeet.login.MainActivity;
-import iii.com.chumeet.mem.MemVO;
 
 import static android.content.Context.MODE_PRIVATE;
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
-import static java.lang.Integer.parseInt;
 
 
 public class ProfileFragment extends Fragment {
@@ -129,15 +128,15 @@ public class ProfileFragment extends Fragment {
         if(networkConnected(getActivity())){
 
             SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-            String memID = pref.getString("id", "");
-            int id = parseInt(memID);
+            Integer memID = pref.getInt("memID", 0);
+
 
             MemVO memVO = null;
 
             try {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "findById");
-                jsonObject.addProperty("id", id);
+                jsonObject.addProperty("id", memID);
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 
@@ -156,7 +155,7 @@ public class ProfileFragment extends Fragment {
             }
 
             try{
-                new GetImageTask(url, id, imageSize, memImg).execute().get();
+                new GetImageTask(url, memID, imageSize, memImg).execute().get();
             }catch (Exception e) {
                 Log.e(TAG, e.toString());
             }

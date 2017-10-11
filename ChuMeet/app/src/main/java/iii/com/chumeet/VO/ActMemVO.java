@@ -1,4 +1,4 @@
-package iii.com.chumeet.act;
+package iii.com.chumeet.VO;
 
 import java.sql.Timestamp;
 

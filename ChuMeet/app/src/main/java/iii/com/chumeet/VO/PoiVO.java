@@ -1,4 +1,4 @@
-package iii.com.chumeet.act;
+package iii.com.chumeet.VO;
 
 /**
  * Created by sonic on 2017/9/30.

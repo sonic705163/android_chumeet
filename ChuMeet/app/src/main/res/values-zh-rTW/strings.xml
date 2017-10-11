@@ -72,4 +72,7 @@
     <string name="btnNext_actInsert">下一步</string>
     <string name="btnFinal_createAct">建立你的活動</string>
     <string name="btnJoinAct">加入本活動</string>
+    <string name="tvActHOT">熱門活動</string>
+    <string name="tvPOI">活動類別</string>
+    <string name="stQRCode">QRCode</string>
 </resources>

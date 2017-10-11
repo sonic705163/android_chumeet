@@ -197,7 +197,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                     Toast.makeText(ActInsert_2Activity.this, "無效日期設定", Toast.LENGTH_SHORT).show();
                                     asDay = today;
 
-                                    return;
+
                                 }
                             }
                         }, asYear, asMonth, asDay);
@@ -303,7 +303,7 @@ public class ActInsert_2Activity extends AppCompatActivity {
                                     aeDay = asDay;
                                     aeHour = asHour;
                                     aeMinute = asMinute;
-                                    return;
+
                                 }
                             }
                         }, aeYear, aeMonth, aeDay);

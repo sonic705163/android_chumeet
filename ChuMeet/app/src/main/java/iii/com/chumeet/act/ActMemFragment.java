@@ -24,16 +24,15 @@ import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
+import iii.com.chumeet.VO.Mem_ActMemVO;
 
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
 
 
-public class MemFragment extends Fragment{
-    private final static String TAG = "MemFragment";
+public class ActMemFragment extends Fragment{
+    private final static String TAG = "ActMemFragment";
     private RecyclerView rvMems;
-
-
 
 
     @Override
@@ -44,8 +43,6 @@ public class MemFragment extends Fragment{
 
         rvMems = (RecyclerView) view.findViewById(R.id.rvMems);
         rvMems.setLayoutManager(new LinearLayoutManager(getActivity() ,LinearLayoutManager.HORIZONTAL, false));
-
-
 
         return view ;
     }
@@ -64,9 +61,7 @@ public class MemFragment extends Fragment{
     }
 
     private void showAll(){
-//        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-//        String memID = pref.getString("id", "");
-//        int id = parseInt(memID);
+
         Bundle bundle = getArguments();
         int actID =  bundle.getInt("ActID");
 
@@ -80,6 +75,7 @@ public class MemFragment extends Fragment{
                 jsonObject.addProperty("action", "getMem_ActMem");
                 jsonObject.addProperty("id", actID);
                 String jsonOut = jsonObject.toString();
+
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 
                 Gson gson = new Gson();
@@ -132,8 +128,8 @@ public class MemFragment extends Fragment{
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder myViewHolder, int postion){
-            final Mem_ActMemVO actMemVO = actMemVOs.get(postion);
+        public void onBindViewHolder(MyViewHolder myViewHolder, int position){
+            final Mem_ActMemVO actMemVO = actMemVOs.get(position);
             String url = Common.URL + "MemServletAndroid";
             int id = actMemVO.getMemID();
 

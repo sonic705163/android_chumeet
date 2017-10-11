@@ -32,7 +32,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private TextView tvMessage;
-    private String memID;
+    private Integer memID;
 
 
     @Override
@@ -69,7 +69,7 @@ public class LogInActivity extends AppCompatActivity {
                             .putBoolean("login", true)
                             .putString("email", email)
                             .putString("password", password)
-                            .putString("id", memID)
+                            .putInt("memID", memID)
                             .apply();
 
                     setResult(RESULT_OK);       //防使用者亂寫
@@ -121,7 +121,7 @@ public class LogInActivity extends AppCompatActivity {
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 
                 Gson gson = new Gson();
-                memID = gson.fromJson(jsonIn, String.class);
+                memID = gson.fromJson(jsonIn, Integer.class);
 
             } catch (Exception e){
                 Log.e(TAG, e.toString());

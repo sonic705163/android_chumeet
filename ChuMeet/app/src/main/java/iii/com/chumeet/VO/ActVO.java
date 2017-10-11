@@ -1,4 +1,4 @@
-package iii.com.chumeet.act;
+package iii.com.chumeet.VO;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

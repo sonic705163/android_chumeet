@@ -1,14 +1,12 @@
-package iii.com.chumeet.home;
+package iii.com.chumeet.act;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,31 +26,29 @@ import iii.com.chumeet.R;
 import iii.com.chumeet.Task.GetImageTask;
 import iii.com.chumeet.Task.MyTask;
 import iii.com.chumeet.VO.ActVO;
-import iii.com.chumeet.act.ActDetailActivity;
 
-import static android.content.Context.MODE_PRIVATE;
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
 
+/**
+ * Created by sonic on 2017/10/9.
+ */
 
-
-public class GoingFragment extends Fragment {
-    private static final String TAG = "GoingFragment";
+public class ActPoiActivity extends AppCompatActivity {
+    private final static String TAG = "ActPoiActivity";
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvActs;
-    private Toolbar toolbar ;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_act_poi);
 
-        View view = inflater.inflate(R.layout.fragment_going, container, false);
-
-        rvActs = (RecyclerView) view.findViewById(R.id.rvActsGoing);
-        rvActs.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvActs = (RecyclerView) findViewById(R.id.rvActsPoi);
+        rvActs.setLayoutManager(new LinearLayoutManager(this ,LinearLayoutManager.VERTICAL, false));
 
         swipeRefreshLayout =
-                (SwipeRefreshLayout) view.findViewById(R.id.goingRefresh);
+                (SwipeRefreshLayout) findViewById(R.id.actPoiRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -61,61 +57,48 @@ public class GoingFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
-        return view ;
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        toolbar = (Toolbar) getView().findViewById(R.id.toolbar_going);
-        toolbar.setTitle("You're going");
 
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-    @Override
-    public void onStart() {
+    protected void onStart(){
         super.onStart();
+
         showAll();
+
     }
 
-    private void showAll(){
-        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-        Integer memID = pref.getInt("memID", 1);
+    private void showAll() {
+        Bundle bundle = this.getIntent().getExtras();
+        Integer poiID = bundle.getInt("poiID");
 
-
-        if(networkConnected(getActivity())){
+        if(networkConnected(this)){
             String url = Common.URL + "ActServletAndroid";
             List<ActVO> actVOs = null;
             try{
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "getActGoing");
-                jsonObject.addProperty("id", memID);
+                jsonObject.addProperty("action", "getActPoi");
+                jsonObject.addProperty("poiID", poiID);
                 String jsonOut = jsonObject.toString();
                 String jsonIn = new MyTask(url, jsonOut).execute().get();
 
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<ActVO>>(){}.getType();
                 actVOs = gson.fromJson(jsonIn, listType);
+
             }catch (Exception e){
                 Log.e(TAG, e.toString());
             }
             if(actVOs == null || actVOs.isEmpty()){
-                showToast(getActivity(), R.string.msg_NoActsFound);
+                showToast(this, R.string.msg_NoActsFound);
             }else{
-                rvActs.setAdapter(new ActsRecyclerViewAdapter(getActivity(), actVOs));
+                rvActs.setAdapter(new ActsRecyclerViewAdapter(this, actVOs));
             }
         }else{
-            showToast(getActivity(), R.string.msg_NoNetwork);
-
+            showToast(this, R.string.msg_NoNetwork);
         }
     }
-
-
 
 
     private class ActsRecyclerViewAdapter extends RecyclerView.Adapter<ActsRecyclerViewAdapter.MyViewHolder>{
@@ -142,12 +125,12 @@ public class GoingFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder myViewHolder, int postion){
-            final ActVO actVO = actVOs.get(postion);
+        public void onBindViewHolder(MyViewHolder myViewHolder, int position){
+            final ActVO actVO = actVOs.get(position);
             String url = Common.URL + "ActServletAndroid";
-            int id = actVO.getActID();
+            int actID = actVO.getActID();
 
-            new GetImageTask(url, id, imageSize, myViewHolder.ivActImg).execute();
+            new GetImageTask(url, actID, imageSize, myViewHolder.ivActImg).execute();
 
             myViewHolder.tvActName.setText(actVO.getActName());
             myViewHolder.tvActDate.setText(actVO.getActStartDate());
@@ -155,7 +138,7 @@ public class GoingFragment extends Fragment {
                 @Override
                 public void onClick(View view){
 
-                    Intent intent = new Intent(getActivity(), ActDetailActivity.class);
+                    Intent intent = new Intent(ActPoiActivity.this, ActDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("actVO", actVO);
                     intent.putExtras(bundle);
@@ -176,9 +159,4 @@ public class GoingFragment extends Fragment {
             }
         }
     }
-
-
-
-
-
 }

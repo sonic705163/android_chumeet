@@ -52,9 +52,9 @@ public class HomeActivity extends AppCompatActivity{
                 case R.id.navFind:
                     transaction.replace(R.id.content, new FindFragment()).commit();
                     return true;
-                case R.id.navBrowse:
-                    transaction.replace(R.id.content, new BrowseFragment()).commit();
-                    return true;
+//                case R.id.navBrowse:
+//                    transaction.replace(R.id.content, new BrowseFragment()).commit();
+//                    return true;
                 case R.id.navGoing:
                     transaction.replace(R.id.content, new GoingFragment()).commit();
                     return true;
@@ -73,6 +73,7 @@ public class HomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
 

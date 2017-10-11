@@ -25,10 +25,10 @@ import java.util.Calendar;
 import iii.com.chumeet.Common;
 import iii.com.chumeet.R;
 import iii.com.chumeet.Task.InsertTask;
+import iii.com.chumeet.VO.ActVO;
 
 import static iii.com.chumeet.Common.networkConnected;
 import static iii.com.chumeet.Common.showToast;
-import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
 
 public class ActInsert_3Activity extends AppCompatActivity {
@@ -84,6 +84,10 @@ public class ActInsert_3Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(etContent.getText().length() <= 0){
+                    Toast.makeText(ActInsert_3Activity.this,"請輸入活動內容",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Bundle bundle = ActInsert_3Activity.this.getIntent().getExtras();
                 String actName = bundle.getString("actName");
                 String locationName = bundle.getString("locationName");
@@ -114,8 +118,8 @@ public class ActInsert_3Activity extends AppCompatActivity {
 
 //主辦人和創建時間
                 SharedPreferences pref = getSharedPreferences(Common.PREF_FILE, MODE_PRIVATE);
-                String memID = pref.getString("id", "");
-                int id = parseInt(memID);
+                Integer memID = pref.getInt("memID", 0);
+
 
                 Calendar calendar = Calendar.getInstance();
                 int mYear = calendar.get(Calendar.YEAR);
@@ -126,7 +130,7 @@ public class ActInsert_3Activity extends AppCompatActivity {
                 int mSecond = calendar.get(Calendar.SECOND);
                 String today = String.valueOf(mYear + "-" + (mMonth + 1) + "-" + mDay + " " + mHour + ":" + mMinute + ":" + mSecond );
 
-                actVO.setMemID(id);
+                actVO.setMemID(memID);
                 actVO.setActCreateDate(Timestamp.valueOf(today));
 //以下預設
                 actVO.setActStatus(1);
@@ -180,7 +184,7 @@ public class ActInsert_3Activity extends AppCompatActivity {
             }
             answer = !actIdStr.equals("");
         }else{
-            showToast(ActInsert_3Activity.this, R.string.msg_NoNetwork);
+            showToast(this, R.string.msg_NoNetwork);
         }
         return answer;
     }

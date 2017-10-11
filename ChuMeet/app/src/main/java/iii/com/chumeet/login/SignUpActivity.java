@@ -46,8 +46,7 @@ import static iii.com.chumeet.Common.showToast;
 public class SignUpActivity extends AppCompatActivity {
     private final static String TAG = "SignUpActivity";
     private final static int REQ_TAKE_PICTURE = 0;
-    private String memID;
-//    private MemVO memVO;
+    private Integer memID = null;
     private Bitmap picture;
     private File file;
     private EditText etName;
@@ -125,7 +124,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_sign_up);
         findViews();
     }
 
@@ -199,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     .putBoolean("login", true)
                                     .putString("email", email)
                                     .putString("password", password)
-                                    .putString("id", memID)
+                                    .putInt("memID", memID)
                                     .apply();
                             setResult(RESULT_OK);
 
@@ -301,10 +300,12 @@ public class SignUpActivity extends AppCompatActivity {
             String signUp = "signUp";
             try {
 
+
+
                 String jsonIn = new SignUpTask(url, signUp, name, email, password, image).execute().get();
 
                 Gson gson = new Gson();
-                memID = gson.fromJson(jsonIn, String.class);
+                memID = gson.fromJson(jsonIn, Integer.class);
 
             } catch (Exception e){
                 Log.e(TAG, e.toString());
