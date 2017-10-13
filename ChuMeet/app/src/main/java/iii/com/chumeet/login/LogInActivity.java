@@ -111,7 +111,7 @@ public class LogInActivity extends AppCompatActivity {
 
         if(networkConnected(this)){
             String url = Common.URL + "SignUp_LogIn_Android";
-
+            Log.d(TAG,"URL="+url);
             try {
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "logIn");
